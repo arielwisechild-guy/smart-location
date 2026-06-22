@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inscription — Smart Location</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/Authentification/auth.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+  <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../global/annonces.html">Annonces</a></li>
+      <li><a href="../../index.html#comment-ca-marche">Comment ca marche</a></li>
+      <li><a href="../../index.html#comptes">Nos comptes</a></li>
+      <li><a href="../global/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="connexion.html" class="btn-outline-white">Connexion</a>
+      <a href="inscription.html" class="btn-gold">Creer un compte</a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <!-- Menu mobile -->
+  <div class="nav-mobile">
+    <a href="../global/annonces.html">Annonces</a>
+    <a href="../../index.html#comment-ca-marche">Comment ca marche</a>
+    <a href="../../index.html#comptes">Nos comptes</a>
+    <a href="../global/contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="connexion.html" class="btn-outline-white">Connexion</a>
+      <a href="inscription.html" class="btn-gold">Creer un compte</a>
+    </div>
+  </div>
+
+  <!-- CONTENU AUTH -->
+  <main class="auth-page">
+
+    <!-- Panneau gauche — visuel -->
+    <div class="auth-visual">
+      <div class="auth-visual-logo">
+        <a href="../../index.html" class="nav-logo">
+          <div class="logo-placeholder">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <span class="logo-text">Smart <span>Location</span></span>
+        </a>
+      </div>
+
+      <div class="auth-visual-body">
+        <h2>Rejoignez <em>Smart</em> Location</h2>
+        <p>Creez votre compte gratuitement et connectez-vous directement avec bailleurs et locataires — sans intermediaire, sans commission.</p>
+        <div class="auth-stats">
+          <div class="auth-stat">
+            <strong>340+</strong>
+            <span>Annonces actives</span>
+          </div>
+          <div class="auth-stat">
+            <strong>24</strong>
+            <span>Communes</span>
+          </div>
+          <div class="auth-stat">
+            <strong>0 $</strong>
+            <span>Commission</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-visual-footer">
+        &copy; 2026 Smart Location — Kinshasa, RDC
+      </div>
+    </div>
+
+    <!-- Panneau droit — formulaire -->
+    <div class="auth-form-panel">
+
+      <div class="auth-form-header">
+        <h1>Creer un compte</h1>
+        <p>Deja inscrit ? <a href="connexion.html">Se connecter</a></p>
+      </div>
+
+      <div class="auth-message"></div>
+
+      <form class="auth-form" data-action="connexion" novalidate>
+
+        <!-- CHOIX DU ROLE -->
+        <div class="form-group">
+          <label>Je suis un</label>
+          <div class="role-selector">
+
+            <div class="role-option" data-role="locataire">
+              <input type="radio" name="role" value="locataire"/>
+              <div class="role-icon"><i class="fa-solid fa-house-user"></i></div>
+              <span class="role-label">Locataire</span>
+              <span class="role-desc">Je cherche une maison</span>
+            </div>
+
+            <div class="role-option" data-role="bailleur">
+              <input type="radio" name="role" value="bailleur"/>
+              <div class="role-icon"><i class="fa-solid fa-key"></i></div>
+              <span class="role-label">Bailleur</span>
+              <span class="role-desc">Je loue un bien</span>
+            </div>
+
+            <div class="role-option" data-role="chef">
+              <input type="radio" name="role" value="chef"/>
+              <div class="role-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <span class="role-label">Chef de quartier</span>
+              <span class="role-desc">Je modere ma zone</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- INFOS COMMUNES -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="prenom">Prenom</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prenom" required autocomplete="given-name"/>
+            </div>
+            <span class="form-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-user input-icon"></i>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required autocomplete="family-name"/>
+            </div>
+            <span class="form-error"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Adresse email</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input type="email" id="email" name="email" placeholder="votre@email.com" required autocomplete="email"/>
+          </div>
+          <span class="form-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Numero de telephone</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-phone input-icon"></i>
+            <input type="tel" id="phone" name="phone" placeholder="0812345678" required autocomplete="tel"/>
+          </div>
+          <span class="form-error"></span>
+        </div>
+
+        <!-- CHAMPS LOCATAIRE -->
+        <div class="role-fields" data-role="locataire">
+          <div class="form-group">
+            <label for="commune_locataire">Commune recherchee</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-map-location-dot input-icon"></i>
+              <select id="commune_locataire" name="commune_locataire">
+                <option value="">Selectionner une commune</option>
+                <option>Gombe</option>
+                <option>Lingwala</option>
+                <option>Kalamu</option>
+                <option>Ngaliema</option>
+                <option>Lemba</option>
+                <option>Kintambo</option>
+                <option>Bandalungwa</option>
+                <option>Barumbu</option>
+                <option>Bumbu</option>
+                <option>Deepe</option>
+                <option>Kinshasa</option>
+                <option>Kimbanseke</option>
+                <option>Kisenso</option>
+                <option>Limete</option>
+                <option>Makala</option>
+                <option>Maluku</option>
+                <option>Masina</option>
+                <option>Matete</option>
+                <option>Mont-Ngafula</option>
+                <option>Ndjili</option>
+                <option>Ngaba</option>
+                <option>Ngiri-Ngiri</option>
+                <option>Nsele</option>
+                <option>Selembao</option>
+              </select>
+            </div>
+            <span class="form-error"></span>
+          </div>
+        </div>
+
+        <!-- CHAMPS BAILLEUR -->
+        <div class="role-fields" data-role="bailleur">
+          <div class="form-group">
+            <label for="commune_bailleur">Commune du bien</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-map-location-dot input-icon"></i>
+              <select id="commune_bailleur" name="commune_bailleur">
+                <option value="">Selectionner une commune</option>
+                <option>Gombe</option>
+                <option>Lingwala</option>
+                <option>Kalamu</option>
+                <option>Ngaliema</option>
+                <option>Lemba</option>
+                <option>Kintambo</option>
+                <option>Bandalungwa</option>
+                <option>Barumbu</option>
+                <option>Bumbu</option>
+                <option>Deepe</option>
+                <option>Kinshasa</option>
+                <option>Kimbanseke</option>
+                <option>Kisenso</option>
+                <option>Limete</option>
+                <option>Makala</option>
+                <option>Maluku</option>
+                <option>Masina</option>
+                <option>Matete</option>
+                <option>Mont-Ngafula</option>
+                <option>Ndjili</option>
+                <option>Ngaba</option>
+                <option>Ngiri-Ngiri</option>
+                <option>Nsele</option>
+                <option>Selembao</option>
+              </select>
+            </div>
+            <span class="form-error"></span>
+          </div>
+        </div>
+
+        <!-- CHAMPS CHEF DE QUARTIER -->
+        <div class="role-fields" data-role="chef">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="commune_chef">Commune</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-map-location-dot input-icon"></i>
+                <select id="commune_chef" name="commune_chef">
+                  <option value="">Commune</option>
+                  <option>Gombe</option>
+                  <option>Lingwala</option>
+                  <option>Kalamu</option>
+                  <option>Ngaliema</option>
+                  <option>Lemba</option>
+                  <option>Kintambo</option>
+                  <option>Bandalungwa</option>
+                  <option>Barumbu</option>
+                  <option>Bumbu</option>
+                  <option>Kinshasa</option>
+                  <option>Kimbanseke</option>
+                  <option>Kisenso</option>
+                  <option>Limete</option>
+                  <option>Makala</option>
+                  <option>Maluku</option>
+                  <option>Masina</option>
+                  <option>Matete</option>
+                  <option>Mont-Ngafula</option>
+                  <option>Ndjili</option>
+                  <option>Ngaba</option>
+                  <option>Ngiri-Ngiri</option>
+                  <option>Nsele</option>
+                  <option>Selembao</option>
+                </select>
+              </div>
+              <span class="form-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="quartier_chef">Quartier</label>
+              <div class="input-wrap">
+                <i class="fa-solid fa-location-dot input-icon"></i>
+                <input type="text" id="quartier_chef" name="quartier_chef" placeholder="Nom du quartier" required/>
+              </div>
+              <span class="form-error"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOT DE PASSE -->
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" id="password" name="password" placeholder="Minimum 6 caracteres" required autocomplete="new-password"/>
+            <button type="button" class="toggle-pwd" aria-label="Afficher le mot de passe">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <span class="form-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm_password">Confirmer le mot de passe</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Retaper le mot de passe" required autocomplete="new-password"/>
+            <button type="button" class="toggle-pwd" aria-label="Afficher le mot de passe">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <span class="form-error"></span>
+        </div>
+
+        <!-- CGU -->
+        <div class="form-check">
+          <input type="checkbox" id="cgu" name="cgu"/>
+          <label for="cgu">
+            J'accepte les <a href="#">conditions generales d'utilisation</a> et la politique de confidentialite de Smart Location.
+          </label>
+        </div>
+
+        <button type="submit" class="btn-submit" data-label="Creer mon compte">
+          <i class="fa-solid fa-user-plus"></i>
+          Creer mon compte
+        </button>
+
+        <div class="auth-divider">ou</div>
+
+        <p style="text-align:center; font-size:0.82rem; color:var(--gray);">
+          Deja inscrit ?
+          <a href="connexion.html" style="color:var(--black); font-weight:600; border-bottom:1px solid var(--black); text-decoration:none;">
+            Se connecter
+          </a>
+        </p>
+
+      </form>
+    </div>
+
+  </main>
+
+  <!-- JS -->
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/Authentification/auth.js"></script>
+
+</body>
+</html>

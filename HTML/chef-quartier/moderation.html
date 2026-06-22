@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moderation — Smart Location</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/chef-quartier/chef.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+      <div class="logo-placeholder"><i class="fa-solid fa-location-dot"></i></div>
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../global/annonces.html">Annonces</a></li>
+      <li><a href="../global/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="moderation.html" class="btn-gold">
+        <i class="fa-solid fa-shield-check"></i> Moderer
+      </a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="../global/annonces.html">Annonces</a>
+    <a href="../global/contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="moderation.html" class="btn-gold">Moderer</a>
+    </div>
+  </div>
+
+  <div class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="sidebar-user-name">Chef de quartier</div>
+        <div class="sidebar-user-role">Moderateur</div>
+        <div class="sidebar-user-zone"><i class="fa-solid fa-location-dot"></i> Gombe — Kinshasa</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-label">Menu</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <i class="fa-solid fa-gauge"></i> Tableau de bord
+        </a>
+        <a href="moderation.html" class="sidebar-link active">
+          <i class="fa-solid fa-list-check"></i> Moderation
+          <span class="sidebar-badge">3</span>
+        </a>
+        <a href="signalements.html" class="sidebar-link">
+          <i class="fa-solid fa-flag"></i> Signalements
+          <span class="sidebar-badge">2</span>
+        </a>
+        <div class="sidebar-label">Zone</div>
+        <a href="../global/annonces.html" class="sidebar-link">
+          <i class="fa-solid fa-magnifying-glass"></i> Voir les annonces
+        </a>
+        <a href="../global/contact.html" class="sidebar-link">
+          <i class="fa-solid fa-envelope"></i> Contact
+        </a>
+        <a href="../Authentification/connexion.html" class="sidebar-link danger">
+          <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="dashboard-main">
+
+      <div class="dash-header">
+        <div class="dash-header-text">
+          <h1>Moderation</h1>
+          <p>Validez ou bloquez les annonces publiees dans votre zone.</p>
+        </div>
+      </div>
+
+      <!-- FILTRES TABS -->
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <h2>Toutes les annonces de ma zone (18)</h2>
+          <div style="display:flex;gap:8px;">
+            <button class="filter-tab active" data-filter="all"
+              style="padding:6px 14px;border:1px solid var(--light);background:var(--black);color:var(--white);border-radius:var(--radius);font-family:Inter,sans-serif;font-size:0.78rem;font-weight:600;cursor:pointer;">
+              Toutes
+            </button>
+            <button class="filter-tab" data-filter="pending"
+              style="padding:6px 14px;border:1px solid var(--light);background:var(--white);color:var(--gray);border-radius:var(--radius);font-family:Inter,sans-serif;font-size:0.78rem;cursor:pointer;">
+              En attente
+            </button>
+            <button class="filter-tab" data-filter="active"
+              style="padding:6px 14px;border:1px solid var(--light);background:var(--white);color:var(--gray);border-radius:var(--radius);font-family:Inter,sans-serif;font-size:0.78rem;cursor:pointer;">
+              Actives
+            </button>
+            <button class="filter-tab" data-filter="blocked"
+              style="padding:6px 14px;border:1px solid var(--light);background:var(--white);color:var(--gray);border-radius:var(--radius);font-family:Inter,sans-serif;font-size:0.78rem;cursor:pointer;">
+              Bloquees
+            </button>
+          </div>
+        </div>
+        <div class="dash-section-body" style="padding:0;">
+          <table class="mod-table">
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Bailleur</th>
+                <th>Quartier</th>
+                <th>Prix</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="mod-row" data-status="pending">
+                <td class="td-title">Villa 4 chambres, Binza</td>
+                <td>Jean-Pierre M.</td>
+                <td>Binza</td>
+                <td class="td-price">750 $</td>
+                <td><span class="status-badge pending"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> En attente</span></td>
+                <td class="td-actions">
+                  <button class="btn-approve btn-approuver" data-id="1"><i class="fa-solid fa-check"></i> Approuver</button>
+                  <button class="btn-block btn-bloquer" data-id="1"><i class="fa-solid fa-ban"></i> Bloquer</button>
+                </td>
+              </tr>
+              <tr class="mod-row" data-status="pending">
+                <td class="td-title">Appartement 2 ch., Gombe centre</td>
+                <td>Marie K.</td>
+                <td>Gombe centre</td>
+                <td class="td-price">320 $</td>
+                <td><span class="status-badge pending"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> En attente</span></td>
+                <td class="td-actions">
+                  <button class="btn-approve btn-approuver" data-id="2"><i class="fa-solid fa-check"></i> Approuver</button>
+                  <button class="btn-block btn-bloquer" data-id="2"><i class="fa-solid fa-ban"></i> Bloquer</button>
+                </td>
+              </tr>
+              <tr class="mod-row" data-status="pending">
+                <td class="td-title">Studio meuble, Boulevard du 30 Juin</td>
+                <td>Patrick L.</td>
+                <td>Avenue des Aviateurs</td>
+                <td class="td-price">180 $</td>
+                <td><span class="status-badge pending"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> En attente</span></td>
+                <td class="td-actions">
+                  <button class="btn-approve btn-approuver" data-id="3"><i class="fa-solid fa-check"></i> Approuver</button>
+                  <button class="btn-block btn-bloquer" data-id="3"><i class="fa-solid fa-ban"></i> Bloquer</button>
+                </td>
+              </tr>
+              <tr class="mod-row" data-status="active">
+                <td class="td-title">Maison 3 chambres avec parking</td>
+                <td>Celine B.</td>
+                <td>Quartier Fleuve</td>
+                <td class="td-price">550 $</td>
+                <td><span class="status-badge active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td class="td-actions">
+                  <button class="btn-block btn-bloquer" data-id="4"><i class="fa-solid fa-ban"></i> Bloquer</button>
+                </td>
+              </tr>
+              <tr class="mod-row" data-status="blocked">
+                <td class="td-title">Appartement fantome — fausse adresse</td>
+                <td>Inconnu</td>
+                <td>Boulevard du 30 Juin</td>
+                <td class="td-price">400 $</td>
+                <td><span class="status-badge blocked"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Bloquee</span></td>
+                <td class="td-actions">
+                  <button class="btn-approve btn-approuver" data-id="5"><i class="fa-solid fa-check"></i> Reactiver</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/chef-quartier/chef.js"></script>
+
+</body>
+</html>

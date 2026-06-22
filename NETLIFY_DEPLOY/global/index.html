@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SMART LOCATION\</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- CSS externalisés -->
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/global/footer.css"/>
+  <link rel="stylesheet" href="../../CSS/global/home.css"/>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════ -->
+  <nav>
+    <a href="index.html" class="nav-logo">   
+           <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location"> 
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="annonces.html">Annonces</a></li>
+      <li><a href="#comment-ca-marche">Comment ca marche</a></li>
+      <li><a href="#comptes">Nos comptes</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="../Authentification/connexion.html" class="btn-outline-white">Connexion</a>
+      <a href="../Authentification/inscription.html" class="btn-gold">Creer un compte</a>
+    </div>
+
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <!-- Menu mobile -->
+  <div class="nav-mobile">
+    <a href="annonces.html">Annonces</a>
+    <a href="#comment-ca-marche">Comment ca marche</a>
+    <a href="#comptes">Nos comptes</a>
+    <a href="contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="../Authentification/connexion.html" class="btn-outline-white">Connexion</a>
+      <a href="../Authentification/inscription.html" class="btn-gold">Creer un compte</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-badge">
+      <i class="fa-solid fa-shield-halved"></i>
+      Annonces verifiees par les chefs de quartier
+    </div>
+
+    <h1>Trouvez votre maison a <em>Kinshasa</em> sans intermediaire</h1>
+
+    <p>Contactez directement les bailleurs, explorez les quartiers sur la carte et filtrez par commune — simplement.</p>
+
+    <div class="search-bar">
+      <div class="search-field">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Quartier, commune, adresse..."/>
+      </div>
+      <div class="search-select">
+        <i class="fa-solid fa-sliders"></i>
+        <select>
+          <option value="">Type de bien</option>
+          <option value="maison">Maison</option>
+          <option value="appartement">Appartement</option>
+          <option value="studio">Studio</option>
+          <option value="villa">Villa</option>
+        </select>
+      </div>
+      <button class="search-btn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Rechercher
+      </button>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <strong><span class="stat-count" data-target="340" data-suffix="+">340+</span></strong>
+        <span>Annonces actives</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <strong><span class="stat-count" data-target="24" data-suffix="">24</span></strong>
+        <span>Communes couvertes</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <strong>0 $</strong>
+        <span>Commission demandee</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       COMMENT CA MARCHE
+  ════════════════════════════════════════ -->
+  <section class="section" id="comment-ca-marche">
+    <p class="section-label">Processus</p>
+    <h2 class="section-title">Simple. Direct. Sans intermediaire.</h2>
+    <p class="section-sub">En trois etapes, trouvez votre logement et contactez le proprietaire directement.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <div class="step-icon"><i class="fa-solid fa-user-plus"></i></div>
+        <h3>Creez votre compte</h3>
+        <p>Inscrivez-vous gratuitement en tant que locataire ou bailleur. Votre identite est verifiee pour la securite de tous.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <div class="step-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+        <h3>Explorez les annonces</h3>
+        <p>Filtrez par commune, quartier et budget. Chaque annonce est localisee sur la carte avec toutes les infos du bien.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <div class="step-icon"><i class="fa-solid fa-phone"></i></div>
+        <h3>Contactez le bailleur</h3>
+        <p>Appelez directement le proprietaire depuis la plateforme. Pas de commissionnaire, pas de frais de visite.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">04</div>
+        <div class="step-icon"><i class="fa-solid fa-shield-check"></i></div>
+        <h3>Annonces verifiees</h3>
+        <p>Les chefs de quartier valident les annonces de leur zone. Fausse info signalee ? Elle est bloquee rapidement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       ANNONCES EN VEDETTE
+  ════════════════════════════════════════ -->
+  <section class="listings-section">
+    <div class="listings-header">
+      <div>
+        <p class="section-label">Disponible maintenant</p>
+        <h2 class="section-title">Annonces en vedette</h2>
+      </div>
+      <a href="annonces.html" class="view-all">
+        Voir toutes les annonces
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="listings-grid">
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <div class="listing-img-placeholder">
+            <i class="fa-solid fa-house"></i>
+          </div>
+          <span class="listing-badge verified">Verifie</span>
+          <button class="listing-fav" title="Sauvegarder">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">450 $ <span>/ mois</span></div>
+          <div class="listing-title">Maison 3 chambres avec salon</div>
+          <div class="listing-location">
+            <i class="fa-solid fa-location-dot"></i>
+            Gombe, Avenue des Aviateurs
+          </div>
+          <div class="listing-meta">
+            <div class="meta-item"><i class="fa-solid fa-bed"></i> 3 chambres</div>
+            <div class="meta-item"><i class="fa-solid fa-bath"></i> 2 SDB</div>
+            <div class="meta-item"><i class="fa-solid fa-car"></i> Parking</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <div class="listing-img-placeholder">
+            <i class="fa-solid fa-building"></i>
+          </div>
+          <span class="listing-badge">Nouveau</span>
+          <button class="listing-fav" title="Sauvegarder">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">200 $ <span>/ mois</span></div>
+          <div class="listing-title">Appartement 2 chambres</div>
+          <div class="listing-location">
+            <i class="fa-solid fa-location-dot"></i>
+            Lingwala, Quartier Socimat
+          </div>
+          <div class="listing-meta">
+            <div class="meta-item"><i class="fa-solid fa-bed"></i> 2 chambres</div>
+            <div class="meta-item"><i class="fa-solid fa-bath"></i> 1 SDB</div>
+            <div class="meta-item"><i class="fa-solid fa-bolt"></i> Groupe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="listing-card">
+        <div class="listing-img">
+          <div class="listing-img-placeholder">
+            <i class="fa-solid fa-house-chimney"></i>
+          </div>
+          <span class="listing-badge verified">Verifie</span>
+          <button class="listing-fav" title="Sauvegarder">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="listing-body">
+          <div class="listing-price">120 $ <span>/ mois</span></div>
+          <div class="listing-title">Studio meuble, eau incluse</div>
+          <div class="listing-location">
+            <i class="fa-solid fa-location-dot"></i>
+            Kalamu, Avenue Kasa-Vubu
+          </div>
+          <div class="listing-meta">
+            <div class="meta-item"><i class="fa-solid fa-bed"></i> Studio</div>
+            <div class="meta-item"><i class="fa-solid fa-bath"></i> 1 SDB</div>
+            <div class="meta-item"><i class="fa-solid fa-couch"></i> Meuble</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       3 TYPES DE COMPTES
+  ════════════════════════════════════════ -->
+  <section class="accounts-section" id="comptes">
+    <p class="section-label">Rejoindre la plateforme</p>
+    <h2 class="section-title">Quel est votre role ?</h2>
+    <p class="section-sub">Smart Location s'adapte a vous — bailleur, locataire ou chef de quartier.</p>
+
+    <div class="accounts-grid">
+
+      <div class="account-card">
+        <div class="account-icon"><i class="fa-solid fa-key"></i></div>
+        <h3>Bailleur</h3>
+        <p>Publiez vos biens directement, recevez les appels des locataires et gerez vos annonces sans intermediaire.</p>
+        <ul class="account-features">
+          <li><i class="fa-solid fa-check"></i> Publication d'annonces avec photos</li>
+          <li><i class="fa-solid fa-check"></i> Localisation GPS sur la carte</li>
+          <li><i class="fa-solid fa-check"></i> Contact direct avec les locataires</li>
+          <li><i class="fa-solid fa-check"></i> Tableau de bord personnel</li>
+        </ul>
+        <a href="../Authentification/inscription.html?role=bailleur" class="btn-black">Creer un compte bailleur</a>
+      </div>
+
+      <div class="account-card featured">
+        <div class="account-icon"><i class="fa-solid fa-house-user"></i></div>
+        <h3>Locataire</h3>
+        <p>Trouvez votre maison dans votre zone, appelez le proprietaire directement et sauvegardez vos favoris.</p>
+        <ul class="account-features">
+          <li><i class="fa-solid fa-check"></i> Recherche par commune et quartier</li>
+          <li><i class="fa-solid fa-check"></i> Carte interactive Google Maps</li>
+          <li><i class="fa-solid fa-check"></i> Appel direct au bailleur</li>
+          <li><i class="fa-solid fa-check"></i> Sauvegarde des annonces favorites</li>
+        </ul>
+        <a href="../Authentification/inscription.html?role=locataire" class="btn-white">Creer un compte locataire</a>
+      </div>
+
+      <div class="account-card">
+        <div class="account-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Chef de quartier</h3>
+        <p>Supervisez les annonces de votre zone, validez les biens et traitez les signalements des habitants.</p>
+        <ul class="account-features">
+          <li><i class="fa-solid fa-check"></i> Validation des annonces locales</li>
+          <li><i class="fa-solid fa-check"></i> Blocage des fausses informations</li>
+          <li><i class="fa-solid fa-check"></i> Gestion des signalements</li>
+          <li><i class="fa-solid fa-check"></i> Vue d'ensemble de la zone</li>
+        </ul>
+        <a href="../Authentification/inscription.html?role=chef" class="btn-black">Creer un compte chef</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       BANNIERE IA
+  ════════════════════════════════════════ -->
+  <div class="ia-banner">
+    <div class="ia-text">
+      <h2>Un assistant IA pour vous guider</h2>
+      <p>Posez vos questions en francais ou en lingala. L'assistant vous aide a trouver le bon logement, comprendre vos droits et naviguer la plateforme.</p>
+      <a href="annonces.html" class="btn-gold">Essayer l'assistant</a>
+    </div>
+    <div class="ia-chat-preview">
+      <div class="chat-bubble user">Montre-moi les maisons a moins de 300$ a Ngaliema</div>
+      <div class="chat-bubble ai">J'ai trouve 12 annonces a Ngaliema sous 300$/mois. Voulez-vous filtrer par nombre de chambres ?</div>
+      <div class="chat-bubble user">Avec 2 chambres minimum</div>
+      <div class="chat-bubble ai">Voici 7 maisons correspondantes — la premiere est verifiee par le chef de quartier.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-grid">
+
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="nav-logo">
+          <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+          <span class="logo-text">Smart <span>Location</span></span>
+        </a>
+        <p>La premiere plateforme de location immobiliere a Kinshasa sans intermediaire — directement entre bailleurs et locataires.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="annonces.html">Toutes les annonces</a></li>
+          <li><a href="#comment-ca-marche">Comment ca marche</a></li>
+          <li><a href="#comptes">Nos comptes</a></li>
+          <li><a href="a-propos.html">A propos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Compte</h4>
+        <ul>
+          <li><a href="../Authentification/connexion.html">Connexion</a></li>
+          <li><a href="../Authentification/inscription.html?role=bailleur">Espace bailleur</a></li>
+          <li><a href="../Authentification/inscription.html?role=locataire">Espace locataire</a></li>
+          <li><a href="../Authentification/inscription.html?role=chef">Chef de quartier</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">Nous contacter</a></li>
+          <li><a href="#">Signaler un probleme</a></li>
+          <li><a href="#">Loi locative 2015</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Smart Location — Kinshasa, RDC. Developpé par Ariel Wise Child & Mr Google.</p>
+      <div class="footer-socials">
+        <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS externalisés -->
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/global/main.js"></script>
+
+</body>
+</html>

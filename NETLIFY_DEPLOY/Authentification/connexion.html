@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Connexion — Smart Location</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/Authentification/auth.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+      <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../global/annonces.html">Annonces</a></li>
+      <li><a href="../../index.html#comment-ca-marche">Comment ca marche</a></li>
+      <li><a href="../../index.html#comptes">Nos comptes</a></li>
+      <li><a href="../global/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="connexion.html" class="btn-gold">Connexion</a>
+      <a href="inscription.html" class="btn-outline-white">Creer un compte</a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <!-- Menu mobile -->
+  <div class="nav-mobile">
+    <a href="../global/annonces.html">Annonces</a>
+    <a href="../../index.html#comment-ca-marche">Comment ca marche</a>
+    <a href="../../index.html#comptes">Nos comptes</a>
+    <a href="../global/contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="connexion.html" class="btn-gold">Connexion</a>
+      <a href="inscription.html" class="btn-outline-white">Creer un compte</a>
+    </div>
+  </div>
+
+  <!-- CONTENU AUTH -->
+  <main class="auth-page">
+
+    <!-- Panneau gauche — visuel -->
+    <div class="auth-visual">
+      <div class="auth-visual-logo">
+        <a href="../../index.html" class="nav-logo">
+          <div class="logo-placeholder">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <span class="logo-text">Smart <span>Location</span></span>
+        </a>
+      </div>
+
+      <div class="auth-visual-body">
+        <h2>Bienvenue <em>sur</em> la plateforme</h2>
+        <p>Connectez-vous pour acceder a vos annonces, vos favoris et votre tableau de bord personnalise.</p>
+        <div class="auth-stats">
+          <div class="auth-stat">
+            <strong>340+</strong>
+            <span>Annonces actives</span>
+          </div>
+          <div class="auth-stat">
+            <strong>24</strong>
+            <span>Communes</span>
+          </div>
+          <div class="auth-stat">
+            <strong>0 $</strong>
+            <span>Commission</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-visual-footer">
+        &copy; 2026 Smart Location — Kinshasa, RDC
+      </div>
+    </div>
+
+    <!-- Panneau droit — formulaire -->
+    <div class="auth-form-panel">
+
+      <div class="auth-form-header">
+        <h1>Connexion</h1>
+        <p>Pas encore de compte ? <a href="inscription.html">Creer un compte</a></p>
+      </div>
+
+      <div class="auth-message"></div>
+
+      <form class="auth-form" data-action="connexion" novalidate>
+
+        <div class="form-group">
+          <label for="email">Adresse email</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="votre@email.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+          <span class="form-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Votre mot de passe"
+              required
+              autocomplete="current-password"
+            />
+            <button type="button" class="toggle-pwd" aria-label="Afficher le mot de passe">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+          <span class="form-error"></span>
+        </div>
+
+        <div class="forgot-link">
+          <a href="#">Mot de passe oublie ?</a>
+        </div>
+
+        <button type="submit" class="btn-submit" data-label="Se connecter">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          Se connecter
+        </button>
+
+        <div class="auth-divider">ou</div>
+
+        <p style="text-align:center; font-size:0.82rem; color:var(--gray);">
+          Pas encore de compte ?
+          <a href="inscription.html" style="color:var(--black); font-weight:600; border-bottom:1px solid var(--black); text-decoration:none;">
+            Creer un compte gratuitement
+          </a>
+        </p>
+
+      </form>
+    </div>
+
+  </main>
+
+  <!-- JS -->
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/Authentification/auth.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Annonces — Smart Location</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/global/footer.css"/>
+  <link rel="stylesheet" href="../../CSS/global/annonces.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+      <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="annonces.html">Annonces</a></li>
+      <li><a href="../../index.html#comment-ca-marche">Comment ca marche</a></li>
+      <li><a href="../../index.html#comptes">Nos comptes</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="../Authentification/connexion.html" class="btn-outline-white">Connexion</a>
+      <a href="../Authentification/inscription.html" class="btn-gold">Creer un compte</a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="annonces.html">Annonces</a>
+    <a href="../../index.html#comment-ca-marche">Comment ca marche</a>
+    <a href="../../index.html#comptes">Nos comptes</a>
+    <a href="contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="../Authentification/connexion.html" class="btn-outline-white">Connexion</a>
+      <a href="../Authentification/inscription.html" class="btn-gold">Creer un compte</a>
+    </div>
+  </div>
+
+  <!-- EN-TETE -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <p class="section-label">Kinshasa, RDC</p>
+      <h1>Toutes les <em>annonces</em></h1>
+      <p>Parcourez les biens disponibles et contactez directement les bailleurs — sans commissionnaire.</p>
+    </div>
+  </section>
+
+  <!-- FILTRES -->
+  <div class="filters-bar">
+    <div class="filters-inner">
+
+      <div class="filter-group filter-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" name="q" placeholder="Quartier, commune, mot-cle..."/>
+      </div>
+
+      <div class="filter-group">
+        <i class="fa-solid fa-map-location-dot"></i>
+        <select name="commune">
+          <option value="">Toutes les communes</option>
+          <option>Gombe</option>
+          <option>Lingwala</option>
+          <option>Kalamu</option>
+          <option>Ngaliema</option>
+          <option>Lemba</option>
+          <option>Kintambo</option>
+          <option>Bandalungwa</option>
+          <option>Barumbu</option>
+          <option>Bumbu</option>
+          <option>Kinshasa</option>
+          <option>Kimbanseke</option>
+          <option>Kisenso</option>
+          <option>Limete</option>
+          <option>Makala</option>
+          <option>Maluku</option>
+          <option>Masina</option>
+          <option>Matete</option>
+          <option>Mont-Ngafula</option>
+          <option>Ndjili</option>
+          <option>Ngaba</option>
+          <option>Ngiri-Ngiri</option>
+          <option>Nsele</option>
+          <option>Selembao</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <i class="fa-solid fa-house"></i>
+        <select name="type">
+          <option value="">Tous les types</option>
+          <option value="maison">Maison</option>
+          <option value="appartement">Appartement</option>
+          <option value="studio">Studio</option>
+          <option value="villa">Villa</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <i class="fa-solid fa-dollar-sign"></i>
+        <select name="prix">
+          <option value="">Tous les prix</option>
+          <option value="0-150">Moins de 150 $</option>
+          <option value="150-300">150 $ — 300 $</option>
+          <option value="300-500">300 $ — 500 $</option>
+          <option value="500-1000">500 $ — 1 000 $</option>
+          <option value="1000+">Plus de 1 000 $</option>
+        </select>
+      </div>
+
+      <div class="filters-actions">
+        <button class="btn-filter-reset">
+          <i class="fa-solid fa-rotate-left"></i>
+          Reinitialiser
+        </button>
+        <button class="btn-filter-apply">
+          <i class="fa-solid fa-sliders"></i>
+          Filtrer
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CONTENU PRINCIPAL -->
+  <div class="annonces-layout">
+    <div>
+      <div class="results-bar">
+        <p class="results-count"><strong>0</strong> annonces trouvees</p>
+        <div class="sort-select">
+          Trier par
+          <select name="tri">
+            <option value="">Pertinence</option>
+            <option value="prix-asc">Prix croissant</option>
+            <option value="prix-desc">Prix decroissant</option>
+            <option value="recent">Plus recent</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="listings-grid"></div>
+      <div class="pagination"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="../../index.html" class="nav-logo">
+          <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+          <span class="logo-text">Smart <span>Location</span></span>
+        </a>
+        <p>La premiere plateforme de location immobiliere a Kinshasa sans intermediaire.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="annonces.html">Toutes les annonces</a></li>
+          <li><a href="../../index.html#comment-ca-marche">Comment ca marche</a></li>
+          <li><a href="../../index.html#comptes">Nos comptes</a></li>
+          <li><a href="a-propos.html">A propos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Compte</h4>
+        <ul>
+          <li><a href="../Authentification/connexion.html">Connexion</a></li>
+          <li><a href="../Authentification/inscription.html?role=bailleur">Espace bailleur</a></li>
+          <li><a href="../Authentification/inscription.html?role=locataire">Espace locataire</a></li>
+          <li><a href="../Authentification/inscription.html?role=chef">Chef de quartier</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="contact.html">Nous contacter</a></li>
+          <li><a href="#">Signaler un probleme</a></li>
+          <li><a href="#">Loi locative 2015</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Smart Location — Kinshasa, RDC. Developpé par Ariel Wise Child & Mr Google.</p>
+      <div class="footer-socials">
+        <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/global/annonces.js"></script>
+
+</body>
+</html>

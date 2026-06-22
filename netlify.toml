@@ -1,0 +1,5 @@
+[build]
+publish = "NETLIFY_DEPLOY"
+
+[dev]
+command = ""

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Publier un bien — Smart Location</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/bailleur/bailleur.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+      <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../global/annonces.html">Annonces</a></li>
+      <li><a href="../global/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="publier.html" class="btn-gold">
+        <i class="fa-solid fa-plus"></i> Publier un bien
+      </a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="../global/annonces.html">Annonces</a>
+    <a href="../global/contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="publier.html" class="btn-gold">Publier un bien</a>
+    </div>
+  </div>
+
+  <!-- PAGE -->
+  <div class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="sidebar-user-name">Ariel Wise Child</div>
+        <div class="sidebar-user-role">Bailleur</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-label">Menu</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <i class="fa-solid fa-gauge"></i> Tableau de bord
+        </a>
+        <a href="publier.html" class="sidebar-link active">
+          <i class="fa-solid fa-plus-circle"></i> Publier un bien
+        </a>
+        <a href="mes-annonces.html" class="sidebar-link">
+          <i class="fa-solid fa-list"></i> Mes annonces
+        </a>
+        <div class="sidebar-label">Compte</div>
+        <a href="../global/annonces.html" class="sidebar-link">
+          <i class="fa-solid fa-magnifying-glass"></i> Voir les annonces
+        </a>
+        <a href="../global/contact.html" class="sidebar-link">
+          <i class="fa-solid fa-envelope"></i> Contact
+        </a>
+        <a href="../Authentification/connexion.html" class="sidebar-link danger">
+          <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="dashboard-main">
+
+      <div class="dash-header">
+        <div class="dash-header-text">
+          <h1>Publier un bien</h1>
+          <p>Remplissez les informations de votre bien. Il sera visible apres validation.</p>
+        </div>
+      </div>
+
+      <form class="publier-layout publier-form" novalidate>
+
+        <!-- Informations générales -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <i class="fa-solid fa-file-lines"></i>
+            <h2>Informations generales</h2>
+          </div>
+          <div class="form-section-body">
+            <div class="form-group">
+              <label for="titre">Titre de l'annonce *</label>
+              <input type="text" id="titre" name="titre" placeholder="Ex : Maison 3 chambres avec salon, eau et electricite"/>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="type">Type de bien *</label>
+                <select id="type" name="type">
+                  <option value="">Selectionner</option>
+                  <option value="maison">Maison</option>
+                  <option value="appartement">Appartement</option>
+                  <option value="studio">Studio</option>
+                  <option value="villa">Villa</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="prix">Prix mensuel (USD) *</label>
+                <input type="number" id="prix" name="prix" placeholder="Ex : 250" min="0"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" placeholder="Decrivez votre bien : etat, equipements, environnement du quartier..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Localisation -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <h2>Localisation</h2>
+          </div>
+          <div class="form-section-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="commune">Commune *</label>
+                <select id="commune" name="commune">
+                  <option value="">Selectionner une commune</option>
+                  <option>Gombe</option>
+                  <option>Lingwala</option>
+                  <option>Kalamu</option>
+                  <option>Ngaliema</option>
+                  <option>Lemba</option>
+                  <option>Kintambo</option>
+                  <option>Bandalungwa</option>
+                  <option>Barumbu</option>
+                  <option>Bumbu</option>
+                  <option>Kinshasa</option>
+                  <option>Kimbanseke</option>
+                  <option>Kisenso</option>
+                  <option>Limete</option>
+                  <option>Makala</option>
+                  <option>Maluku</option>
+                  <option>Masina</option>
+                  <option>Matete</option>
+                  <option>Mont-Ngafula</option>
+                  <option>Ndjili</option>
+                  <option>Ngaba</option>
+                  <option>Ngiri-Ngiri</option>
+                  <option>Nsele</option>
+                  <option>Selembao</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="quartier">Quartier *</label>
+                <input type="text" id="quartier" name="quartier" placeholder="Ex : Avenue des Aviateurs"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="adresse">Adresse complete</label>
+              <input type="text" id="adresse" name="adresse" placeholder="Ex : 12, Avenue des Aviateurs, Gombe"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Caracteristiques -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <i class="fa-solid fa-sliders"></i>
+            <h2>Caracteristiques</h2>
+          </div>
+          <div class="form-section-body">
+            <div class="form-row-3">
+              <div class="form-group">
+                <label for="chambres">Chambres</label>
+                <select id="chambres" name="chambres">
+                  <option value="">--</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5+</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="sdb">Salles de bain</label>
+                <select id="sdb" name="sdb">
+                  <option value="">--</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3+</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="caution">Caution (mois)</label>
+                <select id="caution" name="caution">
+                  <option value="">--</option>
+                  <option value="1">1 mois</option>
+                  <option value="2">2 mois</option>
+                  <option value="3">3 mois (max legal)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="eau">Eau</label>
+                <select id="eau" name="eau">
+                  <option value="">--</option>
+                  <option value="regideso">Regideso</option>
+                  <option value="forage">Forage</option>
+                  <option value="incluse">Incluse dans le loyer</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="electricite">Electricite</label>
+                <select id="electricite" name="electricite">
+                  <option value="">--</option>
+                  <option value="snel">SNEL</option>
+                  <option value="groupe">Groupe electrogene</option>
+                  <option value="solaire">Solaire</option>
+                  <option value="mixte">SNEL + Groupe</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photos -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <i class="fa-solid fa-images"></i>
+            <h2>Photos du bien</h2>
+          </div>
+          <div class="form-section-body">
+            <label class="upload-zone">
+              <input type="file" name="photos" accept="image/*" multiple/>
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <p>Glissez vos photos ici ou cliquez pour selectionner</p>
+              <span>JPG, PNG — max 6 photos — 5 MB par photo</span>
+            </label>
+            <div class="photos-preview"></div>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="form-section">
+          <div class="form-section-header">
+            <i class="fa-solid fa-phone"></i>
+            <h2>Contact bailleur</h2>
+          </div>
+          <div class="form-section-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="telephone">Telephone principal *</label>
+                <input type="tel" id="telephone" name="telephone" placeholder="0812345678"/>
+              </div>
+              <div class="form-group">
+                <label for="whatsapp">WhatsApp (optionnel)</label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="0812345678"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <a href="dashboard.html" class="btn-cancel">Annuler</a>
+          <button type="submit" class="btn-publish">
+            <i class="fa-solid fa-paper-plane"></i>
+            Publier l'annonce
+          </button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/bailleur/bailleur.js"></script>
+
+</body>
+</html>

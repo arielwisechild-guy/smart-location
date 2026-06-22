@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mes annonces — Smart Location</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/bailleur/bailleur.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+      <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../global/annonces.html">Annonces</a></li>
+      <li><a href="../global/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="publier.html" class="btn-gold">
+        <i class="fa-solid fa-plus"></i> Publier un bien
+      </a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="../global/annonces.html">Annonces</a>
+    <a href="../global/contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="publier.html" class="btn-gold">Publier un bien</a>
+    </div>
+  </div>
+
+  <!-- PAGE -->
+  <div class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="sidebar-user-name">Ariel Wise Child</div>
+        <div class="sidebar-user-role">Bailleur</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-label">Menu</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <i class="fa-solid fa-gauge"></i> Tableau de bord
+        </a>
+        <a href="publier.html" class="sidebar-link">
+          <i class="fa-solid fa-plus-circle"></i> Publier un bien
+        </a>
+        <a href="mes-annonces.html" class="sidebar-link active">
+          <i class="fa-solid fa-list"></i> Mes annonces
+        </a>
+        <div class="sidebar-label">Compte</div>
+        <a href="../global/annonces.html" class="sidebar-link">
+          <i class="fa-solid fa-magnifying-glass"></i> Voir les annonces
+        </a>
+        <a href="../global/contact.html" class="sidebar-link">
+          <i class="fa-solid fa-envelope"></i> Contact
+        </a>
+        <a href="../Authentification/connexion.html" class="sidebar-link danger">
+          <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="dashboard-main">
+
+      <div class="dash-header">
+        <div class="dash-header-text">
+          <h1>Mes annonces</h1>
+          <p>Gerez, modifiez ou supprimez vos biens publies.</p>
+        </div>
+        <a href="publier.html" class="btn-gold">
+          <i class="fa-solid fa-plus"></i> Nouvelle annonce
+        </a>
+      </div>
+
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <h2>Toutes mes annonces (3)</h2>
+        </div>
+        <div class="dash-section-body" style="padding:0;">
+          <table class="annonces-table">
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Commune</th>
+                <th>Prix</th>
+                <th>Vues</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="td-title">Maison 3 chambres avec salon</td>
+                <td>Gombe</td>
+                <td class="td-price">450 $</td>
+                <td>87</td>
+                <td><span class="status-badge active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td class="td-actions">
+                  <a href="publier.html" class="btn-icon" title="Modifier"><i class="fa-solid fa-pen"></i></a>
+                  <button class="btn-icon delete btn-delete-annonce" data-id="1" title="Supprimer"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="td-title">Studio meuble, eau incluse</td>
+                <td>Kalamu</td>
+                <td class="td-price">120 $</td>
+                <td>21</td>
+                <td><span class="status-badge pending"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> En attente</span></td>
+                <td class="td-actions">
+                  <a href="publier.html" class="btn-icon" title="Modifier"><i class="fa-solid fa-pen"></i></a>
+                  <button class="btn-icon delete btn-delete-annonce" data-id="2" title="Supprimer"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="td-title">Appartement 2 chambres</td>
+                <td>Lingwala</td>
+                <td class="td-price">200 $</td>
+                <td>34</td>
+                <td><span class="status-badge active"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> Active</span></td>
+                <td class="td-actions">
+                  <a href="publier.html" class="btn-icon" title="Modifier"><i class="fa-solid fa-pen"></i></a>
+                  <button class="btn-icon delete btn-delete-annonce" data-id="3" title="Supprimer"><i class="fa-solid fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/bailleur/bailleur.js"></script>
+
+</body>
+</html>

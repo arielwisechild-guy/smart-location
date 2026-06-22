@@ -1,0 +1,409 @@
+/* ============================================================
+   SMART LOCATION — auth.css
+   Styles partagés : connexion.html & inscription.html
+   ============================================================ */
+
+/* ── LAYOUT GLOBAL ── */
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ── PANNEAU GAUCHE (visuel) ── */
+.auth-visual {
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.auth-visual::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(200,169,110,0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.auth-visual-logo {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-visual-body {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-visual-body h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.auth-visual-body h2 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.auth-visual-body p {
+  color: rgba(255,255,255,0.45);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  max-width: 340px;
+  margin-bottom: 40px;
+}
+
+.auth-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.auth-stat strong {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.auth-stat span {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.4px;
+}
+
+.auth-visual-footer {
+  position: relative;
+  z-index: 1;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ── PANNEAU DROIT (formulaire) ── */
+.auth-form-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 64px;
+  background: var(--white);
+  overflow-y: auto;
+}
+
+.auth-form-header {
+  margin-bottom: 36px;
+}
+
+.auth-form-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+
+.auth-form-header p {
+  font-size: 0.9rem;
+  color: var(--gray);
+}
+
+.auth-form-header p a {
+  color: var(--black);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--black);
+}
+
+/* ── FORMULAIRE ── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--dark);
+  letter-spacing: 0.2px;
+}
+
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrap i.input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--gray);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.input-wrap input,
+.input-wrap select {
+  width: 100%;
+  padding: 13px 14px 13px 40px;
+  border: 1px solid var(--light);
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--black);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+}
+
+.input-wrap input:focus,
+.input-wrap select:focus {
+  border-color: var(--black);
+  box-shadow: 0 0 0 3px rgba(10,10,10,0.06);
+}
+
+.input-wrap input.error,
+.input-wrap select.error {
+  border-color: #e05252;
+}
+
+.input-wrap .toggle-pwd {
+  position: absolute;
+  right: 14px;
+  color: var(--gray);
+  font-size: 0.85rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color 0.2s;
+}
+.input-wrap .toggle-pwd:hover { color: var(--black); }
+
+.form-error {
+  font-size: 0.78rem;
+  color: #e05252;
+  display: none;
+}
+.form-error.visible { display: block; }
+
+/* ── DEUX COLONNES ── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── CHOIX DE ROLE ── */
+.role-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.role-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 10px;
+  border: 1px solid var(--light);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  text-align: center;
+}
+
+.role-option:hover {
+  border-color: var(--gray);
+}
+
+.role-option.active {
+  border-color: var(--black);
+  background: var(--black);
+}
+
+.role-option input[type="radio"] {
+  display: none;
+}
+
+.role-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.role-option.active .role-icon {
+  background: rgba(255,255,255,0.1);
+}
+
+.role-icon i {
+  font-size: 1rem;
+  color: var(--black);
+  transition: color 0.2s;
+}
+.role-option.active .role-icon i { color: var(--accent); }
+
+.role-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--dark);
+  transition: color 0.2s;
+}
+.role-option.active .role-label { color: var(--white); }
+
+.role-desc {
+  font-size: 0.7rem;
+  color: var(--gray);
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+.role-option.active .role-desc { color: rgba(255,255,255,0.45); }
+
+/* ── CHAMPS CONDITIONNELS PAR ROLE ── */
+.role-fields {
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+}
+.role-fields.visible { display: flex; }
+
+/* ── CHECKBOX ── */
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--gray);
+  line-height: 1.5;
+}
+.form-check input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: var(--black);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.form-check a {
+  color: var(--black);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--black);
+}
+
+/* ── BOUTON SUBMIT ── */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s;
+  margin-top: 4px;
+}
+.btn-submit:hover { opacity: 0.82; }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── SEPARATEUR ── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gray);
+  font-size: 0.78rem;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--light);
+}
+
+/* ── MOT DE PASSE OUBLIE ── */
+.forgot-link {
+  text-align: right;
+  font-size: 0.8rem;
+}
+.forgot-link a {
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.forgot-link a:hover { color: var(--black); }
+
+/* ── MESSAGE DE SUCCES / ERREUR GLOBAL ── */
+.auth-message {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: none;
+}
+.auth-message.success {
+  background: rgba(39,174,96,0.1);
+  color: #1a7a42;
+  border: 1px solid rgba(39,174,96,0.25);
+  display: block;
+}
+.auth-message.error {
+  background: rgba(224,82,82,0.1);
+  color: #c0392b;
+  border: 1px solid rgba(224,82,82,0.25);
+  display: block;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .auth-page { grid-template-columns: 1fr; }
+  .auth-visual { display: none; }
+  .auth-form-panel { padding: 40px 28px; justify-content: flex-start; padding-top: 100px; }
+}
+
+@media (max-width: 480px) {
+  .form-row { grid-template-columns: 1fr; }
+  .role-selector { grid-template-columns: 1fr; }
+  .role-option { flex-direction: row; text-align: left; }
+}

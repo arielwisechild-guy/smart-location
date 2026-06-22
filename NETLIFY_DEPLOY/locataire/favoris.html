@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mes favoris — Smart Location</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/locataire/locataire.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+      <div class="logo-placeholder"><i class="fa-solid fa-location-dot"></i></div>
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../global/annonces.html">Annonces</a></li>
+      <li><a href="../global/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="recherche.html" class="btn-gold">
+        <i class="fa-solid fa-magnifying-glass"></i> Rechercher
+      </a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="../global/annonces.html">Annonces</a>
+    <a href="../global/contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="recherche.html" class="btn-gold">Rechercher</a>
+    </div>
+  </div>
+
+  <!-- PAGE -->
+  <div class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar"><i class="fa-solid fa-user"></i></div>
+        <div class="sidebar-user-name">Locataire</div>
+        <div class="sidebar-user-role">Locataire</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-label">Menu</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <i class="fa-solid fa-gauge"></i> Tableau de bord
+        </a>
+        <a href="recherche.html" class="sidebar-link">
+          <i class="fa-solid fa-magnifying-glass"></i> Recherche avancee
+        </a>
+        <a href="favoris.html" class="sidebar-link active">
+          <i class="fa-solid fa-heart"></i> Mes favoris
+        </a>
+        <div class="sidebar-label">Explorer</div>
+        <a href="../global/annonces.html" class="sidebar-link">
+          <i class="fa-solid fa-list"></i> Toutes les annonces
+        </a>
+        <a href="../global/contact.html" class="sidebar-link">
+          <i class="fa-solid fa-envelope"></i> Contact
+        </a>
+        <a href="../Authentification/connexion.html" class="sidebar-link danger">
+          <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="dashboard-main">
+
+      <div class="dash-header">
+        <div class="dash-header-text">
+          <h1>Mes favoris</h1>
+          <p>Les annonces que vous avez sauvegardees pour y revenir facilement.</p>
+        </div>
+        <a href="recherche.html" class="btn-gold">
+          <i class="fa-solid fa-magnifying-glass"></i> Nouvelle recherche
+        </a>
+      </div>
+
+      <div class="listings-grid favoris-grid"></div>
+
+    </main>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/locataire/locataire.js"></script>
+
+</body>
+</html>

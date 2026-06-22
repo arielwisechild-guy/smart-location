@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recherche — Smart Location</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/locataire/locataire.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+      <div class="logo-placeholder"><i class="fa-solid fa-location-dot"></i></div>
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../global/annonces.html">Annonces</a></li>
+      <li><a href="../global/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="recherche.html" class="btn-gold">
+        <i class="fa-solid fa-magnifying-glass"></i> Rechercher
+      </a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="../global/annonces.html">Annonces</a>
+    <a href="../global/contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="recherche.html" class="btn-gold">Rechercher</a>
+    </div>
+  </div>
+
+  <!-- PAGE -->
+  <div class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar"><i class="fa-solid fa-user"></i></div>
+        <div class="sidebar-user-name">Locataire</div>
+        <div class="sidebar-user-role">Locataire</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-label">Menu</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <i class="fa-solid fa-gauge"></i> Tableau de bord
+        </a>
+        <a href="recherche.html" class="sidebar-link active">
+          <i class="fa-solid fa-magnifying-glass"></i> Recherche avancee
+        </a>
+        <a href="favoris.html" class="sidebar-link">
+          <i class="fa-solid fa-heart"></i> Mes favoris
+        </a>
+        <div class="sidebar-label">Explorer</div>
+        <a href="../global/annonces.html" class="sidebar-link">
+          <i class="fa-solid fa-list"></i> Toutes les annonces
+        </a>
+        <a href="../global/contact.html" class="sidebar-link">
+          <i class="fa-solid fa-envelope"></i> Contact
+        </a>
+        <a href="../Authentification/connexion.html" class="sidebar-link danger">
+          <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="dashboard-main">
+
+      <div class="dash-header">
+        <div class="dash-header-text">
+          <h1>Recherche avancee</h1>
+          <p>Affinez votre recherche par commune, type, prix et nombre de chambres.</p>
+        </div>
+      </div>
+
+      <!-- FILTRES -->
+      <div class="recherche-filters">
+        <h2><i class="fa-solid fa-sliders"></i> Filtres</h2>
+        <div class="filters-grid">
+          <div class="filter-field">
+            <label>Mot-cle</label>
+            <input type="text" name="q" placeholder="Quartier, description..."/>
+          </div>
+          <div class="filter-field">
+            <label>Commune</label>
+            <select name="commune">
+              <option value="">Toutes les communes</option>
+              <option>Gombe</option>
+              <option>Lingwala</option>
+              <option>Kalamu</option>
+              <option>Ngaliema</option>
+              <option>Lemba</option>
+              <option>Kintambo</option>
+              <option>Bandalungwa</option>
+              <option>Barumbu</option>
+              <option>Bumbu</option>
+              <option>Kinshasa</option>
+              <option>Kimbanseke</option>
+              <option>Kisenso</option>
+              <option>Limete</option>
+              <option>Makala</option>
+              <option>Maluku</option>
+              <option>Masina</option>
+              <option>Matete</option>
+              <option>Mont-Ngafula</option>
+              <option>Ndjili</option>
+              <option>Ngaba</option>
+              <option>Ngiri-Ngiri</option>
+              <option>Nsele</option>
+              <option>Selembao</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label>Type de bien</label>
+            <select name="type">
+              <option value="">Tous les types</option>
+              <option value="maison">Maison</option>
+              <option value="appartement">Appartement</option>
+              <option value="studio">Studio</option>
+              <option value="villa">Villa</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label>Prix min ($)</label>
+            <input type="number" name="prix_min" placeholder="0" min="0"/>
+          </div>
+          <div class="filter-field">
+            <label>Prix max ($)</label>
+            <input type="number" name="prix_max" placeholder="Ex : 500" min="0"/>
+          </div>
+          <div class="filter-field">
+            <label>Chambres min</label>
+            <select name="chambres">
+              <option value="">Peu importe</option>
+              <option value="1">1+</option>
+              <option value="2">2+</option>
+              <option value="3">3+</option>
+              <option value="4">4+</option>
+            </select>
+          </div>
+        </div>
+        <div class="filters-actions">
+          <button class="btn-reset">
+            <i class="fa-solid fa-rotate-left"></i> Reinitialiser
+          </button>
+          <button class="btn-search">
+            <i class="fa-solid fa-magnifying-glass"></i> Rechercher
+          </button>
+        </div>
+      </div>
+
+      <!-- RESULTATS -->
+      <div class="results-bar">
+        <p class="results-count"><strong>0</strong> annonces trouvees</p>
+      </div>
+
+      <div class="listings-grid"></div>
+
+    </main>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/locataire/locataire.js"></script>
+
+</body>
+</html>

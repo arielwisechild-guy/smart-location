@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Chef de quartier — Smart Location</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <link rel="stylesheet" href="../../CSS/global/style.css"/>
+  <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+  <link rel="stylesheet" href="../../CSS/chef-quartier/chef.css"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="../../index.html" class="nav-logo">
+      <div class="logo-placeholder"><i class="fa-solid fa-location-dot"></i></div>
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="../global/annonces.html">Annonces</a></li>
+      <li><a href="../global/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="moderation.html" class="btn-gold">
+        <i class="fa-solid fa-shield-check"></i> Moderer
+      </a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <div class="nav-mobile">
+    <a href="../global/annonces.html">Annonces</a>
+    <a href="../global/contact.html">Contact</a>
+    <div class="nav-mobile-cta">
+      <a href="moderation.html" class="btn-gold">Moderer</a>
+    </div>
+  </div>
+
+  <div class="dashboard-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="sidebar-user-name">Chef de quartier</div>
+        <div class="sidebar-user-role">Moderateur</div>
+        <div class="sidebar-user-zone"><i class="fa-solid fa-location-dot"></i> Gombe — Kinshasa</div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-label">Menu</div>
+        <a href="dashboard.html" class="sidebar-link active">
+          <i class="fa-solid fa-gauge"></i> Tableau de bord
+        </a>
+        <a href="moderation.html" class="sidebar-link">
+          <i class="fa-solid fa-list-check"></i> Moderation
+          <span class="sidebar-badge">3</span>
+        </a>
+        <a href="signalements.html" class="sidebar-link">
+          <i class="fa-solid fa-flag"></i> Signalements
+          <span class="sidebar-badge">2</span>
+        </a>
+        <div class="sidebar-label">Zone</div>
+        <a href="../global/annonces.html" class="sidebar-link">
+          <i class="fa-solid fa-magnifying-glass"></i> Voir les annonces
+        </a>
+        <a href="../global/contact.html" class="sidebar-link">
+          <i class="fa-solid fa-envelope"></i> Contact
+        </a>
+        <a href="../Authentification/connexion.html" class="sidebar-link danger">
+          <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
+        </a>
+      </nav>
+    </aside>
+
+    <!-- CONTENU -->
+    <main class="dashboard-main">
+
+      <div class="dash-header">
+        <div class="dash-header-text">
+          <h1>Tableau de bord</h1>
+          <p>Vue d'ensemble de votre zone — Gombe, Kinshasa.</p>
+        </div>
+        <a href="moderation.html" class="btn-gold">
+          <i class="fa-solid fa-list-check"></i> Voir la moderation
+        </a>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card-icon gold"><i class="fa-solid fa-list"></i></div>
+          <div class="stat-card-body">
+            <strong>18</strong>
+            <span>Annonces dans ma zone</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon dark"><i class="fa-solid fa-clock"></i></div>
+          <div class="stat-card-body">
+            <strong>3</strong>
+            <span>En attente de validation</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon gold"><i class="fa-solid fa-shield-check"></i></div>
+          <div class="stat-card-body">
+            <strong>14</strong>
+            <span>Annonces approuvees</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon red"><i class="fa-solid fa-flag"></i></div>
+          <div class="stat-card-body">
+            <strong>2</strong>
+            <span>Signalements en attente</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANNONCES EN ATTENTE -->
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <h2>Annonces en attente de validation</h2>
+          <a href="moderation.html" class="dash-link">Voir tout</a>
+        </div>
+        <div class="dash-section-body" style="padding:0;">
+          <table class="mod-table">
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Bailleur</th>
+                <th>Prix</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="mod-row" data-status="pending">
+                <td class="td-title">Villa 4 chambres, Binza</td>
+                <td>Jean-Pierre M.</td>
+                <td class="td-price">750 $</td>
+                <td><span class="status-badge pending"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> En attente</span></td>
+                <td class="td-actions">
+                  <button class="btn-approve btn-approuver" data-id="1"><i class="fa-solid fa-check"></i> Approuver</button>
+                  <button class="btn-block btn-bloquer" data-id="1"><i class="fa-solid fa-ban"></i> Bloquer</button>
+                </td>
+              </tr>
+              <tr class="mod-row" data-status="pending">
+                <td class="td-title">Appartement 2 ch., Gombe centre</td>
+                <td>Marie K.</td>
+                <td class="td-price">320 $</td>
+                <td><span class="status-badge pending"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> En attente</span></td>
+                <td class="td-actions">
+                  <button class="btn-approve btn-approuver" data-id="2"><i class="fa-solid fa-check"></i> Approuver</button>
+                  <button class="btn-block btn-bloquer" data-id="2"><i class="fa-solid fa-ban"></i> Bloquer</button>
+                </td>
+              </tr>
+              <tr class="mod-row" data-status="pending">
+                <td class="td-title">Studio meuble, Boulevard du 30 Juin</td>
+                <td>Patrick L.</td>
+                <td class="td-price">180 $</td>
+                <td><span class="status-badge pending"><i class="fa-solid fa-circle" style="font-size:0.5rem;"></i> En attente</span></td>
+                <td class="td-actions">
+                  <button class="btn-approve btn-approuver" data-id="3"><i class="fa-solid fa-check"></i> Approuver</button>
+                  <button class="btn-block btn-bloquer" data-id="3"><i class="fa-solid fa-ban"></i> Bloquer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DERNIERS SIGNALEMENTS -->
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <h2>Signalements recents</h2>
+          <a href="signalements.html" class="dash-link">Voir tout</a>
+        </div>
+        <div class="dash-section-body">
+
+          <div class="signalement-card">
+            <div class="signalement-header">
+              <div class="signalement-title">Prix different de la realite</div>
+              <span class="status-badge new">Nouveau</span>
+            </div>
+            <div class="signalement-meta">
+              <span><i class="fa-solid fa-house"></i> Villa 4 chambres, Binza</span>
+              <span><i class="fa-solid fa-user"></i> Locataire anonyme</span>
+              <span><i class="fa-solid fa-clock"></i> Il y a 2 heures</span>
+            </div>
+            <div class="signalement-body">
+              Le prix affiche est de 750 $ mais le bailleur demande 900 $ lors du contact. Information trompeuse.
+            </div>
+            <div class="signalement-actions">
+              <button class="btn-approve btn-resoudre"><i class="fa-solid fa-check"></i> Marquer resolu</button>
+              <button class="btn-block btn-archiver"><i class="fa-solid fa-archive"></i> Archiver</button>
+            </div>
+          </div>
+
+          <div class="signalement-card">
+            <div class="signalement-header">
+              <div class="signalement-title">Annonce fictive — maison inexistante</div>
+              <span class="status-badge new">Nouveau</span>
+            </div>
+            <div class="signalement-meta">
+              <span><i class="fa-solid fa-house"></i> Appartement 2 ch., Gombe centre</span>
+              <span><i class="fa-solid fa-user"></i> Utilisateur verifie</span>
+              <span><i class="fa-solid fa-clock"></i> Il y a 5 heures</span>
+            </div>
+            <div class="signalement-body">
+              Je me suis deplace a l'adresse indiquee. La maison n'existe pas a cet emplacement. L'annonce est fausse.
+            </div>
+            <div class="signalement-actions">
+              <button class="btn-approve btn-resoudre"><i class="fa-solid fa-check"></i> Marquer resolu</button>
+              <button class="btn-block btn-archiver"><i class="fa-solid fa-archive"></i> Archiver</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/chef-quartier/chef.js"></script>
+
+</body>
+</html>
