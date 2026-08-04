@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Demo — Smart Location</title>
+  <link rel="stylesheet" href="../../CSS/global/style.css" />
+  <link rel="stylesheet" href="../../CSS/global/navbar.css" />
+</head>
+<body>
+  <nav>
+    <a href="../../index.html" class="nav-logo">Smart Location</a>
+  </nav>
+
+  <main style="padding:24px;max-width:800px;margin:0 auto">
+    <h1>Assistant IA (démo)</h1>
+    <p>Cette page appelle la Netlify Function `ai-proxy`. Elle fonctionne même si vous n'êtes pas connecté. Si aucun service payant n'est configuré, un assistant gratuit de guide vous répondra quand même et vous indiquera comment utiliser le site.</p>
+
+    <div id="auth-status" style="margin:12px 0;padding:12px;border-radius:8px;background:#fff3cd;color:#856404;border:1px solid #ffeeba;display:none"></div>
+
+    <div>
+      <textarea id="prompt" placeholder="Posez une question (ex: comment publier une annonce, où se connecter, comment trouver un logement)"></textarea>
+    </div>
+    <div style="margin-top:8px">
+      <button id="sendBtn" class="btn-gold">Envoyer</button>
+    </div>
+
+    <pre id="result" style="white-space:pre-wrap;background:#f7f7f7;padding:12px;border-radius:6px;margin-top:12px"></pre>
+  </main>
+
+  <script src="../../JAVASCRIPT/global/ai-proxy-client.js"></script>
+  <script src="../../JAVASCRIPT/global/chat-widget.js"></script>
+
+  <!-- Chat widget markup -->
+  <div id="chat-widget" style="position:fixed;right:20px;bottom:20px;z-index:9999;font-family:Inter, sans-serif">
+    <button id="chat-toggle" style="background:#0d6efd;color:#fff;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 10px rgba(13,110,253,.2)">Assistant</button>
+    <div id="chat-panel" style="display:none;width:340px;max-width:90vw;background:#fff;border:1px solid #e6e6e6;padding:8px;border-radius:10px;margin-top:8px;box-shadow:0 8px 24px rgba(0,0,0,.12)">
+      <div id="chat-messages" style="height:260px;overflow:auto;margin-bottom:8px;padding:6px"></div>
+      <textarea id="chat-input" rows="2" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #ddd;border-radius:6px"></textarea>
+      <button id="chat-send" style="margin-top:6px;background:#0d6efd;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Envoyer</button>
+    </div>
+  </div>
+</body>
+</html>

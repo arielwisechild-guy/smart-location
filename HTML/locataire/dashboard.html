@@ -45,18 +45,26 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-      <div class="sidebar-user">
-        <div class="sidebar-user-avatar"><i class="fa-solid fa-user"></i></div>
-        <div class="sidebar-user-name">Locataire</div>
-        <div class="sidebar-user-role">Locataire</div>
+      <!-- BLOC PROFIL CONNECTÉ (DYNAMIQUE) -->
+      <div class="sidebar-user" style="text-align: center; padding: 15px 10px;">
+        <div class="avatar-container" style="position: relative; display: inline-block; margin-bottom: 8px;">
+          <img id="user-avatar-img" src="https://via.placeholder.com/80?text=User" alt="Photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #c5a059;">
+          <label for="avatar-input" style="position: absolute; bottom: 0; right: 0; background: #c5a059; color: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);" title="Changer de photo">
+            <i class="fa-solid fa-camera"></i>
+          </label>
+          <input type="file" id="avatar-input" accept="image/*" style="display: none;">
+        </div>
+        <div id="sidebar-user-name" class="sidebar-user-name" style="font-weight: 600; font-size: 1rem; color: #fff;">Chargement...</div>
+        <div id="sidebar-user-role" class="sidebar-user-role" style="font-size: 0.75rem; color: #c5a059; text-transform: uppercase;">LOCATAIRE</div>
       </div>
+
       <nav class="sidebar-nav">
         <div class="sidebar-label">Menu</div>
         <a href="dashboard.html" class="sidebar-link active">
           <i class="fa-solid fa-gauge"></i> Tableau de bord
         </a>
         <a href="recherche.html" class="sidebar-link">
-          <i class="fa-solid fa-magnifying-glass"></i> Recherche avancee
+          <i class="fa-solid fa-magnifying-glass"></i> Recherche avancée
         </a>
         <a href="favoris.html" class="sidebar-link">
           <i class="fa-solid fa-heart"></i> Mes favoris
@@ -68,19 +76,19 @@
         <a href="../global/contact.html" class="sidebar-link">
           <i class="fa-solid fa-envelope"></i> Contact
         </a>
-        <a href="../Authentification/connexion.html" class="sidebar-link danger">
-          <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
+        <a href="#" id="btn-logout" class="sidebar-link danger">
+          <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
         </a>
       </nav>
     </aside>
 
-    <!-- CONTENU -->
+    <!-- CONTENU MAIN -->
     <main class="dashboard-main">
 
       <div class="dash-header">
         <div class="dash-header-text">
           <h1>Tableau de bord</h1>
-          <p>Trouvez votre maison ideale a Kinshasa sans intermediaire.</p>
+          <p>Trouvez votre maison idéale à Kinshasa sans intermédiaire.</p>
         </div>
         <a href="recherche.html" class="btn-gold">
           <i class="fa-solid fa-magnifying-glass"></i> Nouvelle recherche
@@ -100,14 +108,14 @@
           <div class="stat-card-icon dark"><i class="fa-solid fa-heart"></i></div>
           <div class="stat-card-body">
             <strong>0</strong>
-            <span>Favoris sauvegardes</span>
+            <span>Favoris sauvegardés</span>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-card-icon gold"><i class="fa-solid fa-shield-check"></i></div>
+          <div class="stat-card-icon gold"><i class="fa-solid fa-shield-halved"></i></div>
           <div class="stat-card-body">
             <strong>212</strong>
-            <span>Annonces verifiees</span>
+            <span>Annonces vérifiées</span>
           </div>
         </div>
         <div class="stat-card">
@@ -119,76 +127,14 @@
         </div>
       </div>
 
-      <!-- ANNONCES RECOMMANDEES -->
+      <!-- ANNONCES RECENTES -->
       <div class="dash-section">
         <div class="dash-section-header">
-          <h2>Annonces recentes</h2>
+          <h2>Annonces récentes</h2>
           <a href="recherche.html" class="dash-link">Voir tout</a>
         </div>
         <div class="dash-section-body">
-          <div class="listings-grid">
-
-            <div class="listing-card">
-              <div class="listing-img">
-                <div class="listing-img-placeholder"><i class="fa-solid fa-house"></i></div>
-                <span class="listing-badge verified">Verifie</span>
-                <button class="listing-fav" data-id="1" title="Sauvegarder">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="listing-body">
-                <div class="listing-price">450 $ <span>/ mois</span></div>
-                <div class="listing-title">Maison 3 chambres avec salon</div>
-                <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Gombe, Avenue des Aviateurs</div>
-                <div class="listing-meta">
-                  <div class="meta-item"><i class="fa-solid fa-bed"></i> 3 ch.</div>
-                  <div class="meta-item"><i class="fa-solid fa-bath"></i> 2 SDB</div>
-                </div>
-                <a href="tel:+243812000001" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>
-              </div>
-            </div>
-
-            <div class="listing-card">
-              <div class="listing-img">
-                <div class="listing-img-placeholder"><i class="fa-solid fa-building"></i></div>
-                <span class="listing-badge">Disponible</span>
-                <button class="listing-fav" data-id="2" title="Sauvegarder">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="listing-body">
-                <div class="listing-price">200 $ <span>/ mois</span></div>
-                <div class="listing-title">Appartement 2 chambres</div>
-                <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Lingwala, Quartier Socimat</div>
-                <div class="listing-meta">
-                  <div class="meta-item"><i class="fa-solid fa-bed"></i> 2 ch.</div>
-                  <div class="meta-item"><i class="fa-solid fa-bath"></i> 1 SDB</div>
-                </div>
-                <a href="tel:+243812000002" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>
-              </div>
-            </div>
-
-            <div class="listing-card">
-              <div class="listing-img">
-                <div class="listing-img-placeholder"><i class="fa-solid fa-house-chimney"></i></div>
-                <span class="listing-badge verified">Verifie</span>
-                <button class="listing-fav" data-id="3" title="Sauvegarder">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="listing-body">
-                <div class="listing-price">120 $ <span>/ mois</span></div>
-                <div class="listing-title">Studio meuble, eau incluse</div>
-                <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Kalamu, Avenue Kasa-Vubu</div>
-                <div class="listing-meta">
-                  <div class="meta-item"><i class="fa-solid fa-bed"></i> 1 ch.</div>
-                  <div class="meta-item"><i class="fa-solid fa-bath"></i> 1 SDB</div>
-                </div>
-                <a href="tel:+243812000003" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>
-              </div>
-            </div>
-
-          </div>
+          <div class="listings-grid"></div>
         </div>
       </div>
 
@@ -199,10 +145,10 @@
         </div>
         <div class="dash-section-body">
           <p style="font-size:0.875rem;color:var(--gray);line-height:1.7;">
-            La <strong style="color:var(--black);">loi congolaise de 2015</strong> limite la caution a
+            La <strong style="color:var(--black);">loi congolaise de 2015</strong> limite la caution à
             <strong style="color:var(--black);">3 mois de loyer maximum</strong>.
             Tout bailleur qui exige plus est en infraction. Sur Smart Location, aucun commissionnaire
-            ne s'interpose — vous contactez directement le proprietaire et negociez librement.
+            ne s'interpose — vous contactez directement le propriétaire et négociez librement.
           </p>
         </div>
       </div>
@@ -210,14 +156,22 @@
     </main>
   </div>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
-  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <!-- SUPABASE & SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../JAVASCRIPT/global/supabase-config.js"></script>
   <script src="../../JAVASCRIPT/global/navbar.js"></script>
   <script src="../../JAVASCRIPT/locataire/locataire.js"></script>
+  <script src="../../JAVASCRIPT/global/chat-widget.js"></script>
+
+  <!-- CHAT WIDGET -->
+  <div id="chat-widget" style="position:fixed;right:20px;bottom:20px;z-index:9999;font-family:Inter, sans-serif">
+    <button id="chat-toggle" style="background:#0d6efd;color:#fff;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 10px rgba(13,110,253,.2)">Assistant</button>
+    <div id="chat-panel" style="display:none;width:340px;max-width:90vw;background:#fff;border:1px solid #e6e6e6;padding:8px;border-radius:10px;margin-top:8px;box-shadow:0 8px 24px rgba(0,0,0,.12)">
+      <div id="chat-messages" style="height:260px;overflow:auto;margin-bottom:8px;padding:6px"></div>
+      <textarea id="chat-input" rows="2" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #ddd;border-radius:6px"></textarea>
+      <button id="chat-send" style="margin-top:6px;background:#0d6efd;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Envoyer</button>
+    </div>
+  </div>
 
 </body>
 </html>

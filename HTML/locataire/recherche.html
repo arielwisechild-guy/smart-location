@@ -43,20 +43,27 @@
   <!-- PAGE -->
   <div class="dashboard-page">
 
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR AVEC NOM ET PHOTO DYNAMIQUES -->
     <aside class="sidebar">
-      <div class="sidebar-user">
-        <div class="sidebar-user-avatar"><i class="fa-solid fa-user"></i></div>
-        <div class="sidebar-user-name">Locataire</div>
-        <div class="sidebar-user-role">Locataire</div>
+      <div class="sidebar-user" style="text-align: center; padding: 15px 10px;">
+        <div class="avatar-container" style="position: relative; display: inline-block; margin-bottom: 8px;">
+          <img id="user-avatar-img" src="https://via.placeholder.com/80?text=User" alt="Photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #c5a059;">
+          <label for="avatar-input" style="position: absolute; bottom: 0; right: 0; background: #c5a059; color: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px;" title="Changer de photo">
+            <i class="fa-solid fa-camera"></i>
+          </label>
+          <input type="file" id="avatar-input" accept="image/*" style="display: none;">
+        </div>
+        <div id="sidebar-user-name" class="sidebar-user-name" style="font-weight: 600; font-size: 1rem; color: #fff;">Chargement...</div>
+        <div id="sidebar-user-role" class="sidebar-user-role" style="font-size: 0.75rem; color: #c5a059; text-transform: uppercase;">LOCATAIRE</div>
       </div>
+
       <nav class="sidebar-nav">
         <div class="sidebar-label">Menu</div>
         <a href="dashboard.html" class="sidebar-link">
           <i class="fa-solid fa-gauge"></i> Tableau de bord
         </a>
         <a href="recherche.html" class="sidebar-link active">
-          <i class="fa-solid fa-magnifying-glass"></i> Recherche avancee
+          <i class="fa-solid fa-magnifying-glass"></i> Recherche avancée
         </a>
         <a href="favoris.html" class="sidebar-link">
           <i class="fa-solid fa-heart"></i> Mes favoris
@@ -68,116 +75,123 @@
         <a href="../global/contact.html" class="sidebar-link">
           <i class="fa-solid fa-envelope"></i> Contact
         </a>
-        <a href="../Authentification/connexion.html" class="sidebar-link danger">
-          <i class="fa-solid fa-right-from-bracket"></i> Deconnexion
+        <a href="#" id="btn-logout" class="sidebar-link danger">
+          <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
         </a>
       </nav>
     </aside>
 
-    <!-- CONTENU -->
+    <!-- CONTENU PRINCIPAL -->
     <main class="dashboard-main">
 
       <div class="dash-header">
         <div class="dash-header-text">
-          <h1>Recherche avancee</h1>
+          <h1>Recherche avancée</h1>
           <p>Affinez votre recherche par commune, type, prix et nombre de chambres.</p>
         </div>
       </div>
 
-      <!-- FILTRES -->
-      <div class="recherche-filters">
-        <h2><i class="fa-solid fa-sliders"></i> Filtres</h2>
-        <div class="filters-grid">
-          <div class="filter-field">
-            <label>Mot-cle</label>
-            <input type="text" name="q" placeholder="Quartier, description..."/>
-          </div>
-          <div class="filter-field">
-            <label>Commune</label>
-            <select name="commune">
-              <option value="">Toutes les communes</option>
-              <option>Gombe</option>
-              <option>Lingwala</option>
-              <option>Kalamu</option>
-              <option>Ngaliema</option>
-              <option>Lemba</option>
-              <option>Kintambo</option>
-              <option>Bandalungwa</option>
-              <option>Barumbu</option>
-              <option>Bumbu</option>
-              <option>Kinshasa</option>
-              <option>Kimbanseke</option>
-              <option>Kisenso</option>
-              <option>Limete</option>
-              <option>Makala</option>
-              <option>Maluku</option>
-              <option>Masina</option>
-              <option>Matete</option>
-              <option>Mont-Ngafula</option>
-              <option>Ndjili</option>
-              <option>Ngaba</option>
-              <option>Ngiri-Ngiri</option>
-              <option>Nsele</option>
-              <option>Selembao</option>
-            </select>
-          </div>
-          <div class="filter-field">
-            <label>Type de bien</label>
-            <select name="type">
-              <option value="">Tous les types</option>
-              <option value="maison">Maison</option>
-              <option value="appartement">Appartement</option>
-              <option value="studio">Studio</option>
-              <option value="villa">Villa</option>
-            </select>
-          </div>
-          <div class="filter-field">
-            <label>Prix min ($)</label>
-            <input type="number" name="prix_min" placeholder="0" min="0"/>
-          </div>
-          <div class="filter-field">
-            <label>Prix max ($)</label>
-            <input type="number" name="prix_max" placeholder="Ex : 500" min="0"/>
-          </div>
-          <div class="filter-field">
-            <label>Chambres min</label>
-            <select name="chambres">
-              <option value="">Peu importe</option>
-              <option value="1">1+</option>
-              <option value="2">2+</option>
-              <option value="3">3+</option>
-              <option value="4">4+</option>
-            </select>
-          </div>
+      <!-- FILTRES DE RECHERCHE -->
+      <div class="dash-section" style="background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <div class="dash-section-header" style="margin-bottom: 15px;">
+          <h2 style="font-size: 1.2rem;"><i class="fa-solid fa-sliders"></i> Filtres</h2>
         </div>
-        <div class="filters-actions">
-          <button class="btn-reset">
-            <i class="fa-solid fa-rotate-left"></i> Reinitialiser
-          </button>
-          <button class="btn-search">
-            <i class="fa-solid fa-magnifying-glass"></i> Rechercher
-          </button>
+        <div class="dash-section-body">
+          <div class="filters-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+            
+            <div class="filter-field">
+              <label style="display:block; font-size: 0.85rem; font-weight:600; margin-bottom: 5px;">Mot-clé</label>
+              <input type="text" name="q" placeholder="Quartier, description..." style="width:100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px;">
+            </div>
+
+            <div class="filter-field">
+              <label style="display:block; font-size: 0.85rem; font-weight:600; margin-bottom: 5px;">Commune</label>
+              <select name="commune" style="width:100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px;">
+                <option value="">Toutes les communes</option>
+                <option value="Gombe">Gombe</option>
+                <option value="Ngaliema">Ngaliema</option>
+                <option value="Kintambo">Kintambo</option>
+                <option value="Lingwala">Lingwala</option>
+                <option value="Barumbu">Barumbu</option>
+                <option value="Kinshasa">Kinshasa</option>
+                <option value="Kalamu">Kalamu</option>
+                <option value="Kasa-Vubu">Kasa-Vubu</option>
+                <option value="Bandalungwa">Bandalungwa</option>
+                <option value="Selembao">Selembao</option>
+                <option value="Bumbu">Bumbu</option>
+                <option value="Makala">Makala</option>
+                <option value="Ngiri-Ngiri">Ngiri-Ngiri</option>
+                <option value="Lemba">Lemba</option>
+                <option value="Ngaba">Ngaba</option>
+                <option value="Matete">Matete</option>
+                <option value="Kisenso">Kisenso</option>
+                <option value="Masina">Masina</option>
+                <option value="Ndjili">Ndjili</option>
+                <option value="Kimbanseke">Kimbanseke</option>
+                <option value="Nsele">Nsele</option>
+                <option value="Mont-Ngafula">Mont-Ngafula</option>
+                <option value="Maluku">Maluku</option>
+              </select>
+            </div>
+
+            <div class="filter-field">
+              <label style="display:block; font-size: 0.85rem; font-weight:600; margin-bottom: 5px;">Type de bien</label>
+              <select name="type" style="width:100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px;">
+                <option value="">Tous les types</option>
+                <option value="Appartement">Appartement</option>
+                <option value="Maison">Maison</option>
+                <option value="Studio">Studio</option>
+                <option value="Villa">Villa</option>
+              </select>
+            </div>
+
+            <div class="filter-field">
+              <label style="display:block; font-size: 0.85rem; font-weight:600; margin-bottom: 5px;">Prix min ($)</label>
+              <input type="number" name="prix_min" placeholder="0" style="width:100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px;">
+            </div>
+
+            <div class="filter-field">
+              <label style="display:block; font-size: 0.85rem; font-weight:600; margin-bottom: 5px;">Prix max ($)</label>
+              <input type="number" name="prix_max" placeholder="Ex : 500" style="width:100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px;">
+            </div>
+
+            <div class="filter-field">
+              <label style="display:block; font-size: 0.85rem; font-weight:600; margin-bottom: 5px;">Chambres min</label>
+              <select name="chambres" style="width:100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px;">
+                <option value="">Peu importe</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+            <button class="btn-reset" style="padding: 10px 20px; background: #eee; border: none; border-radius: 6px; cursor: pointer;"><i class="fa-solid fa-rotate-left"></i> Réinitialiser</button>
+            <button class="btn-search btn-gold" style="padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; color:#fff;"><i class="fa-solid fa-magnifying-glass"></i> Rechercher</button>
+          </div>
         </div>
       </div>
 
-      <!-- RESULTATS -->
-      <div class="results-bar">
-        <p class="results-count"><strong>0</strong> annonces trouvees</p>
+      <!-- COMPTEUR DE RÉSULTATS -->
+      <div style="margin-bottom: 15px;" class="results-count">
+        <strong>0</strong> annonce trouvée
       </div>
 
+      <!-- GRILLE DES ANNONCES -->
       <div class="listings-grid"></div>
 
     </main>
   </div>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
-  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <!-- SUPABASE JS ET CONFIGURATION -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../JAVASCRIPT/global/supabase-config.js"></script>
   <script src="../../JAVASCRIPT/global/navbar.js"></script>
   <script src="../../JAVASCRIPT/locataire/locataire.js"></script>
+  <script src="../../JAVASCRIPT/global/chat-widget.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!DOCTYPE html>
+  <html lang="fr">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mot de passe oublié — Smart Location</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../CSS/global/style.css"/>
+    <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
+    <link rel="stylesheet" href="../../CSS/Authentification/auth.css"/>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <nav>
+      <a href="../global/index.html" class="nav-logo">
+        <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+        <span class="logo-text">Smart <span>Location</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../global/annonces.html">Annonces</a></li>
+        <li><a href="/HTML/global/index.html#comment-ca-marche">Comment ca marche</a></li>
+        <li><a href="/HTML/global/mes-comptes.html">Mes comptes</a></li>
+        <li><a href="../global/contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="connexion.html" class="btn-gold">Connexion</a>
+        <a href="inscription.html" class="btn-outline-white">Creer un compte</a>
+      </div>
+      <i class="fa-solid fa-bars nav-burger"></i>
+    </nav>
+
+    <div class="nav-mobile">
+      <a href="/HTML/global/annonces.html">Annonces</a>
+      <a href="/HTML/global/index.html#comment-ca-marche">Comment ca marche</a>
+      <a href="/HTML/global/mes-comptes.html">Mes comptes</a>
+      <a href="/HTML/global/contact.html">Contact</a>
+      <div class="nav-mobile-cta">
+        <a href="connexion.html" class="btn-gold">Connexion</a>
+        <a href="inscription.html" class="btn-outline-white">Creer un compte</a>
+      </div>
+    </div>
+
+    <!-- CONTENU AUTH -->
+    <main class="auth-page">
+
+      <!-- Panneau gauche — visuel -->
+      <div class="auth-visual">
+        <div class="auth-visual-body">
+          <h2>Bienvenue <em>sur</em> la plateforme</h2>
+          <p>Entrez votre adresse email pour recevoir un lien de réinitialisation du mot de passe.</p>
+          <div class="auth-stats">
+            <div class="auth-stat">
+              <strong>340+</strong>
+              <span>Annonces actives</span>
+            </div>
+            <div class="auth-stat">
+              <strong>24</strong>
+              <span>Communes</span>
+            </div>
+            <div class="auth-stat">
+              <strong>0 $</strong>
+              <span>Commission</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="auth-visual-footer">
+          &copy; 2026 Smart Location — Kinshasa, RDC
+        </div>
+      </div>
+
+      <!-- Panneau droit — formulaire -->
+      <div class="auth-form-panel">
+
+        <div class="auth-form-header">
+          <h1>Réinitialiser le mot de passe</h1>
+          <p>Entrez votre adresse email. Nous vous enverrons un lien pour réinitialiser votre mot de passe.</p>
+        </div>
+
+        <div class="auth-message" id="reset-message"></div>
+
+        <form id="reset-form" class="auth-form" novalidate>
+          <div class="form-group">
+            <label for="reset-email">Adresse email</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-envelope input-icon"></i>
+              <input type="email" id="reset-email" name="email" placeholder="votre@email.com" required autocomplete="email" />
+            </div>
+            <span class="form-error"></span>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fa-solid fa-envelope-open-text"></i>
+            Envoyer le lien de réinitialisation
+          </button>
+
+          <div style="margin-top:12px">
+            <a href="connexion.html">Retour à la connexion</a>
+          </div>
+        </form>
+      </div>
+
+    </main>
+
+    <!-- JS -->
+    <script src="../../JAVASCRIPT/global/navbar.js"></script>
+    <script src="../../JAVASCRIPT/Authentification/reset-password.js"></script>
+
+  </body>
+  </html>

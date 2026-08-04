@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../../CSS/global/style.css"/>
   <link rel="stylesheet" href="../../CSS/global/navbar.css"/>
   <link rel="stylesheet" href="../../CSS/bailleur/bailleur.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
 
@@ -168,6 +169,16 @@
               <label for="adresse">Adresse complete</label>
               <input type="text" id="adresse" name="adresse" placeholder="Ex : 12, Avenue des Aviateurs, Gombe"/>
             </div>
+            <div class="form-group">
+              <label>Localiser automatiquement</label>
+              <div class="form-row">
+                <button type="button" id="locate-btn" class="btn-gold">Utiliser ma position</button>
+                <small id="locate-status" style="margin-left:8px;color:#666"></small>
+              </div>
+              <div id="map" style="height:300px;margin-top:12px;border:1px solid #e6e6e6;border-radius:8px"></div>
+              <input type="hidden" id="latitude" name="latitude" />
+              <input type="hidden" id="longitude" name="longitude" />
+            </div>
           </div>
         </div>
 
@@ -283,7 +294,12 @@
     </main>
   </div>
 
-  <!-- Firebase -->
+  <!-- Firebase + Supabase -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="../../JAVASCRIPT/bailleur/gps.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../JAVASCRIPT/global/supabase-config.js"></script>
+  <script src="../../JAVASCRIPT/global/supabase-init.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
@@ -291,6 +307,17 @@
   <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
   <script src="../../JAVASCRIPT/global/navbar.js"></script>
   <script src="../../JAVASCRIPT/bailleur/bailleur.js"></script>
+  <script src="../../JAVASCRIPT/global/chat-widget.js"></script>
+
+  <!-- Chat widget markup -->
+  <div id="chat-widget" style="position:fixed;right:20px;bottom:20px;z-index:9999;font-family:Inter, sans-serif">
+    <button id="chat-toggle" style="background:#0d6efd;color:#fff;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 10px rgba(13,110,253,.2)">Assistant</button>
+    <div id="chat-panel" style="display:none;width:340px;max-width:90vw;background:#fff;border:1px solid #e6e6e6;padding:8px;border-radius:10px;margin-top:8px;box-shadow:0 8px 24px rgba(0,0,0,.12)">
+      <div id="chat-messages" style="height:260px;overflow:auto;margin-bottom:8px;padding:6px"></div>
+      <textarea id="chat-input" rows="2" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #ddd;border-radius:6px"></textarea>
+      <button id="chat-send" style="margin-top:6px;background:#0d6efd;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Envoyer</button>
+    </div>
+  </div>
 
 </body>
 </html>

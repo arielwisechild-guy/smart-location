@@ -132,9 +132,11 @@
           }
         })
         .catch(function (error) {
+          console.error('Connexion error:', error);
           btn.disabled  = false;
           btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter';
-          showMessage(msgEl, 'error', getErrorMessage(error.code));
+          var connMsg = (error && error.code) ? getErrorMessage(error.code) : (error && error.message ? error.message : 'Une erreur est survenue. Reessayez.');
+          showMessage(msgEl, 'error', connMsg);
         });
     });
   }
@@ -182,29 +184,87 @@
       btn.disabled  = true;
       btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Creation du compte...';
 
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(function (userCredential) {
-          var uid = userCredential.user.uid;
-          userCredential.user.updateProfile({ displayName: prenom + ' ' + nom });
-          return db.collection('users').doc(uid).set({
-            uid:       uid,
-            prenom:    prenom,
-            nom:       nom,
-            email:     email,
-            phone:     phone,
-            role:      role,
-            commune:   commune,
-            quartier:  quartier,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      function saveUserProfile(uid, profileData, attempt) {
+        return Promise.resolve()
+          .then(function () {
+            if (!auth.currentUser) return;
+            return auth.currentUser.reload().catch(function () {});
+          })
+          .then(function () {
+            if (!auth.currentUser) return;
+            return auth.currentUser.getIdToken(true).catch(function () {});
+          })
+          .then(function () {
+            return db.collection('users').doc(uid).set(profileData);
+          })
+          .catch(function (error) {
+            if (error && error.code === 'permission-denied' && attempt < 3) {
+              return new Promise(function (resolve) {
+                setTimeout(function () {
+                  resolve(saveUserProfile(uid, profileData, attempt + 1));
+                }, 1000);
+              });
+            }
+            throw error;
           });
-        })
-        .then(function () {
-          redirectByRole(role);
+      }
+
+      // Vérifier qu'il n'existe pas déjà un utilisateur avec ce email/phone
+      function checkDuplicateUser() {
+        return db.collection('users').where('email', '==', email).get()
+          .then(function (snap) {
+            if (!snap.empty) return Promise.resolve(true);
+            return db.collection('users').where('phone', '==', phone).get().then(function (s2) {
+              return !s2.empty;
+            });
+          });
+      }
+
+      checkDuplicateUser()
+        .then(function (exists) {
+          if (exists) {
+            btn.disabled  = false;
+            btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Creer mon compte';
+            showMessage(msgEl, 'error', 'Inscription impossible : cette adresse email ou ce numéro existent déjà.');
+            return Promise.reject({ handled: true });
+          }
+
+          return auth.createUserWithEmailAndPassword(email, password)
+            .then(function (userCredential) {
+              var uid = userCredential.user.uid;
+              userCredential.user.updateProfile({ displayName: prenom + ' ' + nom });
+              return saveUserProfile(uid, {
+                uid:       uid,
+                prenom:    prenom,
+                nom:       nom,
+                email:     email,
+                phone:     phone,
+                role:      role,
+                commune:   commune,
+                quartier:  quartier,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              }, 1);
+            })
+            .then(function () {
+              redirectByRole(role);
+            });
         })
         .catch(function (error) {
+          if (error && error.handled) return;
+          console.error('Inscription error:', error);
           btn.disabled  = false;
           btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Creer mon compte';
-          showMessage(msgEl, 'error', getErrorMessage(error.code));
+
+          var insMsg = 'Une erreur est survenue pendant l\'inscription.';
+          if (error && error.code === 'permission-denied') {
+            insMsg = 'La création du profil utilisateur a été refusée par Firestore. Vérifiez que les règles Firestore sont bien déployées.';
+          } else if (error && error.code) {
+            insMsg = getErrorMessage(error.code);
+          } else if (error && error.message) {
+            insMsg = error.message;
+          }
+
+          showMessage(msgEl, 'error', insMsg);
         });
     });
   }
@@ -251,9 +311,11 @@
       'auth/weak-password':          'Mot de passe trop faible (minimum 6 caracteres).',
       'auth/invalid-email':          'Adresse email invalide.',
       'auth/too-many-requests':      'Trop de tentatives. Reessayez dans quelques minutes.',
-      'auth/network-request-failed': 'Erreur reseau. Verifiez votre connexion internet.'
+      'auth/network-request-failed': 'Erreur reseau. Verifiez votre connexion internet.',
+      'auth/operation-not-allowed': 'L\'inscription par email/mot de passe est desactivee dans la configuration Firebase.',
+      'auth/invalid-phone-number':  'Le numero de telephone est invalide.'
     };
-    return messages[code] || 'Une erreur est survenue. Reessayez.';
+    return messages[code] || 'Erreur Firebase : ' + (code || 'inconnue');
   }
 
 })();

@@ -1,46 +1,202 @@
 /* ============================================================
-   SMART LOCATION — locataire.js
-   Rôle : logique des pages locataire
-   - Recherche avancée avec filtres
-   - Favoris (ajout / suppression / affichage)
-   - Appel direct bailleur
+   SMART LOCATION — locataire.js (Version Supabase)
+   Rôle : Logique Supabase des pages locataire
+   - Vérification session + profil (nom, prénom, photo)
+   - Dashboard & annonces récentes depuis Supabase
+   - Recherche avancée multi-critères
+   - Gestion des favoris (localStorage)
+   - Upload de photo de profil & Déconnexion
+   Développé par : Ariel Wise Child — © 2026
    ============================================================ */
 
 (function () {
-
-  /* ══════════════════════════════════════
-     DONNEES DE DEMO
-     À remplacer par Firebase Firestore
-  ══════════════════════════════════════ */
-  var ANNONCES = [
-    { id: 1, titre: 'Maison 3 chambres avec salon', commune: 'Gombe', quartier: 'Avenue des Aviateurs', type: 'maison', prix: 450, chambres: 3, sdb: 2, verifie: true, tel: '+243812000001' },
-    { id: 2, titre: 'Appartement 2 chambres', commune: 'Lingwala', quartier: 'Quartier Socimat', type: 'appartement', prix: 200, chambres: 2, sdb: 1, verifie: false, tel: '+243812000002' },
-    { id: 3, titre: 'Studio meuble, eau incluse', commune: 'Kalamu', quartier: 'Avenue Kasa-Vubu', type: 'studio', prix: 120, chambres: 1, sdb: 1, verifie: true, tel: '+243812000003' },
-    { id: 4, titre: 'Villa 4 chambres avec jardin', commune: 'Ngaliema', quartier: 'Quartier Binza', type: 'villa', prix: 900, chambres: 4, sdb: 3, verifie: true, tel: '+243812000004' },
-    { id: 5, titre: 'Maison 2 chambres', commune: 'Lemba', quartier: 'Quartier 1', type: 'maison', prix: 180, chambres: 2, sdb: 1, verifie: false, tel: '+243812000005' },
-    { id: 6, titre: 'Appartement standing', commune: 'Gombe', quartier: 'Boulevard du 30 Juin', type: 'appartement', prix: 650, chambres: 3, sdb: 2, verifie: true, tel: '+243812000006' },
-    { id: 7, titre: 'Studio proche marche', commune: 'Kintambo', quartier: 'Marche de Kintambo', type: 'studio', prix: 90, chambres: 1, sdb: 1, verifie: false, tel: '+243812000007' },
-    { id: 8, titre: 'Maison spacieuse 4 chambres', commune: 'Limete', quartier: 'Industriel', type: 'maison', prix: 350, chambres: 4, sdb: 2, verifie: true, tel: '+243812000008' },
-  ];
-
   var favoris = JSON.parse(localStorage.getItem('sl_favoris') || '[]');
 
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.supabaseClient) {
+      console.error('Client Supabase introuvable.');
+      return;
+    }
+
+    /* ══════════════════════════════════════
+       0. VÉRIFIER LA SESSION SUPABASE
+    ══════════════════════════════════════ */
+    window.supabaseClient.auth.getSession().then(function (result) {
+      var session = result.data ? result.data.session : null;
+
+      if (!session) {
+        window.location.href = '../Authentification/connexion.html';
+        return;
+      }
+
+      var userAuth = session.user;
+      var userId = userAuth.id;
+
+      /* Chargement du profil locataire (Nom, Prénom, Photo) */
+      window.supabaseClient
+        .from('profiles')
+        .select('nom, prenom, role, avatar_url')
+        .eq('id', userId)
+        .maybeSingle()
+        .then(function (res) {
+          var profile = res.data;
+
+          var nameEl = document.getElementById('sidebar-user-name');
+          var roleEl = document.getElementById('sidebar-user-role');
+          var avatarImg = document.getElementById('user-avatar-img');
+
+          var prenom = (profile && profile.prenom) || (userAuth.user_metadata && userAuth.user_metadata.prenom) || '';
+          var nom = (profile && profile.nom) || (userAuth.user_metadata && userAuth.user_metadata.nom) || '';
+          var fullName = (prenom + ' ' + nom).trim();
+
+          if (nameEl) {
+            nameEl.textContent = fullName.length > 0 ? fullName : 'Locataire';
+          }
+
+          if (roleEl) {
+            var role = (profile && profile.role) || (userAuth.user_metadata && userAuth.user_metadata.role) || 'LOCATAIRE';
+            roleEl.textContent = role.toUpperCase();
+          }
+
+          if (avatarImg && profile && profile.avatar_url) {
+            avatarImg.src = profile.avatar_url;
+          }
+        })
+        .catch(function (err) {
+          console.error('Erreur profil :', err);
+          var nameEl = document.getElementById('sidebar-user-name');
+          if (nameEl) nameEl.textContent = 'Locataire';
+        });
+
+      /* Initialiser les fonctions selon la page active */
+      var page = window.location.pathname;
+      if (page.includes('dashboard')) initDashboard();
+      if (page.includes('recherche')) initRecherche();
+      if (page.includes('favoris')) initFavoris();
+    });
+
+    /* ══════════════════════════════════════
+       GESTION UPLOAD PHOTO DE PROFIL
+    ══════════════════════════════════════ */
+    var avatarInput = document.getElementById('avatar-input');
+    if (avatarInput) {
+      avatarInput.addEventListener('change', function (e) {
+        var file = e.target.files[0];
+        if (!file) return;
+
+        window.supabaseClient.auth.getSession().then(function (result) {
+          var session = result.data ? result.data.session : null;
+          if (!session) return;
+
+          var userId = session.user.id;
+          var fileExt = file.name.split('.').pop();
+          var filePath = 'avatars/' + userId + '.' + fileExt;
+
+          window.supabaseClient.storage
+            .from('avatars')
+            .upload(filePath, file, { upsert: true })
+            .then(function (uploadRes) {
+              if (uploadRes.error) throw uploadRes.error;
+
+              var publicUrlData = window.supabaseClient.storage
+                .from('avatars')
+                .getPublicUrl(filePath);
+
+              var publicUrl = publicUrlData.data.publicUrl;
+
+              return window.supabaseClient
+                .from('profiles')
+                .update({ avatar_url: publicUrl })
+                .eq('id', userId)
+                .then(function () {
+                  var avatarImg = document.getElementById('user-avatar-img');
+                  if (avatarImg) avatarImg.src = publicUrl;
+                });
+            })
+            .catch(function (err) {
+              console.error('Erreur upload photo :', err);
+              alert('Impossible de mettre à jour la photo.');
+            });
+        });
+      });
+    }
+
+    /* ══════════════════════════════════════
+       GESTION DÉCONNEXION
+    ══════════════════════════════════════ */
+    var logoutBtn = document.getElementById('btn-logout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.supabaseClient.auth.signOut().then(function () {
+          window.location.href = '../Authentification/connexion.html';
+        });
+      });
+    }
+  });
+
   /* ══════════════════════════════════════
-     1. PAGE RECHERCHE
+     1. DASHBOARD — Annonces récentes (Supabase)
   ══════════════════════════════════════ */
-  var grid       = document.querySelector('.listings-grid');
-  var countEl    = document.querySelector('.results-count');
-  var btnSearch  = document.querySelector('.btn-search');
-  var btnReset   = document.querySelector('.btn-reset');
+  function initDashboard() {
+    var grid = document.querySelector('.listings-grid');
+    if (!grid) return;
+
+    window.supabaseClient
+      .from('annonces')
+      .select('*')
+      .eq('statut', 'active')
+      .order('created_at', { ascending: false })
+      .limit(3)
+      .then(function (res) {
+        grid.innerHTML = '';
+        if (res.error) throw res.error;
+        if (res.data) {
+          res.data.forEach(function (annonce) {
+            grid.appendChild(buildCard(annonce.id, annonce));
+          });
+        }
+      })
+      .catch(function (err) {
+        console.error('Dashboard locataire:', err);
+      });
+  }
+
+  /* ══════════════════════════════════════
+     2. RECHERCHE AVANCÉE (Supabase)
+  ══════════════════════════════════════ */
+  function initRecherche() {
+    var grid = document.querySelector('.listings-grid');
+    var countEl = document.querySelector('.results-count');
+    var btnSearch = document.querySelector('.btn-search');
+    var btnReset = document.querySelector('.btn-reset');
+
+    loadAndRender({}, grid, countEl);
+
+    if (btnSearch) {
+      btnSearch.addEventListener('click', function () {
+        loadAndRender(getFilters(), grid, countEl);
+      });
+    }
+
+    if (btnReset) {
+      btnReset.addEventListener('click', function () {
+        document.querySelectorAll('.filter-field input, .filter-field select').forEach(function (el) {
+          el.value = '';
+        });
+        loadAndRender({}, grid, countEl);
+      });
+    }
+  }
 
   function getFilters() {
     return {
-      q:       getVal('[name="q"]'),
+      q: getVal('[name="q"]'),
       commune: getVal('[name="commune"]'),
-      type:    getVal('[name="type"]'),
+      type: getVal('[name="type"]'),
       prixMin: parseInt(getVal('[name="prix_min"]')) || 0,
       prixMax: parseInt(getVal('[name="prix_max"]')) || Infinity,
-      chambres:parseInt(getVal('[name="chambres"]')) || 0,
+      chambres: parseInt(getVal('[name="chambres"]')) || 0,
     };
   }
 
@@ -49,139 +205,189 @@
     return el ? el.value.trim() : '';
   }
 
-  function filterAnnonces(f) {
-    return ANNONCES.filter(function (a) {
-      if (f.q && !(a.titre.toLowerCase().includes(f.q.toLowerCase()) || a.commune.toLowerCase().includes(f.q.toLowerCase()))) return false;
-      if (f.commune && a.commune !== f.commune) return false;
-      if (f.type    && a.type    !== f.type)    return false;
-      if (a.prix < f.prixMin || a.prix > f.prixMax) return false;
-      if (f.chambres && a.chambres < f.chambres) return false;
-      return true;
-    });
-  }
-
-  function renderGrid(list) {
+  function loadAndRender(f, grid, countEl) {
     if (!grid) return;
-    grid.innerHTML = '';
+    grid.innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray);">' +
+      '<i class="fa-solid fa-circle-notch fa-spin" style="font-size:1.5rem;display:block;margin-bottom:12px;"></i>' +
+      'Recherche en cours...</div>';
 
-    if (countEl) {
-      countEl.innerHTML = '<strong>' + list.length + '</strong> annonce' + (list.length !== 1 ? 's' : '') + ' trouvee' + (list.length !== 1 ? 's' : '');
-    }
+    window.supabaseClient
+      .from('annonces')
+      .select('*')
+      .eq('statut', 'active')
+      .then(function (res) {
+        if (res.error) throw res.error;
 
-    if (list.length === 0) {
-      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1"><i class="fa-solid fa-house-circle-xmark"></i><h3>Aucun resultat</h3><p>Modifiez vos filtres pour elargir la recherche.</p></div>';
-      return;
-    }
+        var results = [];
+        var data = res.data || [];
 
-    list.forEach(function (a) {
-      var isFav = favoris.includes(a.id);
-      var card  = document.createElement('div');
-      card.className = 'listing-card';
-      card.innerHTML =
-        '<div class="listing-img">' +
-          '<div class="listing-img-placeholder"><i class="fa-solid fa-house"></i></div>' +
-          (a.verifie ? '<span class="listing-badge verified">Verifie</span>' : '<span class="listing-badge">Disponible</span>') +
-          '<button class="listing-fav' + (isFav ? ' active' : '') + '" data-id="' + a.id + '" title="Sauvegarder">' +
-            '<i class="fa-' + (isFav ? 'solid' : 'regular') + ' fa-heart"></i>' +
-          '</button>' +
-        '</div>' +
-        '<div class="listing-body">' +
-          '<div class="listing-price">' + a.prix + ' $ <span>/ mois</span></div>' +
-          '<div class="listing-title">' + a.titre + '</div>' +
-          '<div class="listing-location"><i class="fa-solid fa-location-dot"></i> ' + a.commune + ', ' + a.quartier + '</div>' +
-          '<div class="listing-meta">' +
-            '<div class="meta-item"><i class="fa-solid fa-bed"></i> ' + a.chambres + ' ch.</div>' +
-            '<div class="meta-item"><i class="fa-solid fa-bath"></i> ' + a.sdb + ' SDB</div>' +
-          '</div>' +
-          '<a href="tel:' + a.tel + '" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>' +
-        '</div>';
+        data.forEach(function (a) {
+          if (f.commune && a.commune !== f.commune) return;
+          if (f.type && a.type !== f.type) return;
+          if (f.prixMin && a.prix < f.prixMin) return;
+          if (f.prixMax && a.prix > f.prixMax) return;
+          if (f.chambres && parseInt(a.chambres) < f.chambres) return;
+          if (
+            f.q &&
+            !(
+              (a.titre || '').toLowerCase().includes(f.q.toLowerCase()) ||
+              (a.commune || '').toLowerCase().includes(f.q.toLowerCase()) ||
+              (a.quartier || '').toLowerCase().includes(f.q.toLowerCase())
+            )
+          )
+            return;
 
-      card.querySelector('.listing-fav').addEventListener('click', function (e) {
-        e.stopPropagation();
-        toggleFavori(a.id, this);
+          results.push(a);
+        });
+
+        grid.innerHTML = '';
+
+        if (countEl) {
+          countEl.innerHTML =
+            '<strong>' +
+            results.length +
+            '</strong> annonce' +
+            (results.length !== 1 ? 's' : '') +
+            ' trouvée' +
+            (results.length !== 1 ? 's' : '');
+        }
+
+        if (results.length === 0) {
+          grid.innerHTML =
+            '<div class="empty-state" style="grid-column:1/-1">' +
+            '<i class="fa-solid fa-house-circle-xmark"></i>' +
+            '<h3>Aucun résultat</h3>' +
+            '<p>Modifiez vos filtres pour élargir la recherche.</p></div>';
+          return;
+        }
+
+        results.forEach(function (a) {
+          grid.appendChild(buildCard(a.id, a));
+        });
+      })
+      .catch(function (err) {
+        console.error('Recherche:', err);
+        grid.innerHTML =
+          '<div class="empty-state" style="grid-column:1/-1">' +
+          '<i class="fa-solid fa-triangle-exclamation"></i>' +
+          '<h3>Erreur de chargement</h3>' +
+          '<p>Vérifiez votre connexion et réessayez.</p></div>';
       });
-
-      grid.appendChild(card);
-    });
-  }
-
-  if (btnSearch) {
-    btnSearch.addEventListener('click', function () {
-      renderGrid(filterAnnonces(getFilters()));
-    });
-  }
-
-  if (btnReset) {
-    btnReset.addEventListener('click', function () {
-      document.querySelectorAll('.filter-field input, .filter-field select').forEach(function (el) { el.value = ''; });
-      renderGrid(ANNONCES);
-    });
-  }
-
-  // Init recherche
-  if (grid && document.querySelector('.recherche-filters')) {
-    renderGrid(ANNONCES);
   }
 
   /* ══════════════════════════════════════
-     2. PAGE FAVORIS
+     3. FAVORIS (Supabase)
   ══════════════════════════════════════ */
-  var favsGrid = document.querySelector('.favoris-grid');
-
-  function renderFavoris() {
-    if (!favsGrid) return;
-    favsGrid.innerHTML = '';
-    var liste = ANNONCES.filter(function (a) { return favoris.includes(a.id); });
-
-    if (liste.length === 0) {
-      favsGrid.innerHTML =
-        '<div class="empty-state" style="grid-column:1/-1">' +
-        '<i class="fa-regular fa-heart"></i>' +
-        '<h3>Aucun favori sauvegarde</h3>' +
-        '<p>Parcourez les annonces et cliquez sur le coeur pour sauvegarder vos coups de coeur.</p>' +
-        '<a href="recherche.html" class="btn-call" style="display:inline-flex;width:auto;margin-top:4px;">Voir les annonces</a>' +
-        '</div>';
+  function initFavoris() {
+    var grid = document.querySelector('.favoris-grid');
+    if (!grid || favoris.length === 0) {
+      if (grid)
+        grid.innerHTML =
+          '<div class="empty-state" style="grid-column:1/-1">' +
+          '<i class="fa-regular fa-heart"></i>' +
+          '<h3>Aucun favori sauvegardé</h3>' +
+          '<p>Parcourez les annonces et cliquez sur le cœur pour sauvegarder.</p>' +
+          '<a href="recherche.html" class="btn-call" style="display:inline-flex;width:auto;margin-top:4px;">Voir les annonces</a>' +
+          '</div>';
       return;
     }
 
-    liste.forEach(function (a) {
-      var card = document.createElement('div');
-      card.className = 'listing-card';
-      card.innerHTML =
-        '<div class="listing-img">' +
-          '<div class="listing-img-placeholder"><i class="fa-solid fa-house"></i></div>' +
-          (a.verifie ? '<span class="listing-badge verified">Verifie</span>' : '') +
-          '<button class="listing-fav active" data-id="' + a.id + '" title="Retirer des favoris">' +
-            '<i class="fa-solid fa-heart"></i>' +
-          '</button>' +
-        '</div>' +
-        '<div class="listing-body">' +
-          '<div class="listing-price">' + a.prix + ' $ <span>/ mois</span></div>' +
-          '<div class="listing-title">' + a.titre + '</div>' +
-          '<div class="listing-location"><i class="fa-solid fa-location-dot"></i> ' + a.commune + ', ' + a.quartier + '</div>' +
-          '<div class="listing-meta">' +
-            '<div class="meta-item"><i class="fa-solid fa-bed"></i> ' + a.chambres + ' ch.</div>' +
-            '<div class="meta-item"><i class="fa-solid fa-bath"></i> ' + a.sdb + ' SDB</div>' +
-          '</div>' +
-          '<a href="tel:' + a.tel + '" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>' +
-        '</div>';
+    grid.innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray);">' +
+      '<i class="fa-solid fa-circle-notch fa-spin" style="font-size:1.5rem;display:block;margin-bottom:12px;"></i>' +
+      'Chargement...</div>';
 
-      card.querySelector('.listing-fav').addEventListener('click', function (e) {
-        e.stopPropagation();
-        toggleFavori(a.id, this);
-        setTimeout(renderFavoris, 300);
+    window.supabaseClient
+      .from('annonces')
+      .select('*')
+      .in('id', favoris)
+      .then(function (res) {
+        grid.innerHTML = '';
+        if (res.error) throw res.error;
+
+        var docs = res.data || [];
+        docs.forEach(function (doc) {
+          var card = buildCard(doc.id, doc, true);
+          grid.appendChild(card);
+        });
+
+        if (grid.children.length === 0) {
+          grid.innerHTML =
+            '<div class="empty-state" style="grid-column:1/-1">' +
+            '<i class="fa-regular fa-heart"></i>' +
+            '<h3>Aucun favori disponible</h3>' +
+            '<p>Certaines annonces ont peut-être été supprimées.</p></div>';
+        }
+      })
+      .catch(function (err) {
+        console.error('Favoris:', err);
       });
-
-      favsGrid.appendChild(card);
-    });
   }
 
-  renderFavoris();
+  /* ══════════════════════════════════════
+     4. CONSTRUCTION D'UNE CARTE
+  ══════════════════════════════════════ */
+  function buildCard(id, a, isFavPage) {
+    var isFav = favoris.includes(id);
+    var photo =
+      a.photos && a.photos.length > 0
+        ? '<img src="' + a.photos[0] + '" alt="' + (a.titre || '') + '"/>'
+        : '<div class="listing-img-placeholder"><i class="fa-solid fa-house"></i></div>';
+
+    var card = document.createElement('div');
+    card.className = 'listing-card';
+    card.innerHTML =
+      '<div class="listing-img">' +
+      photo +
+      (a.verifie ? '<span class="listing-badge verified">Vérifié</span>' : '<span class="listing-badge">Disponible</span>') +
+      '<button class="listing-fav' +
+      (isFav ? ' active' : '') +
+      '" data-id="' +
+      id +
+      '" title="Sauvegarder">' +
+      '<i class="fa-' +
+      (isFav ? 'solid' : 'regular') +
+      ' fa-heart"></i>' +
+      '</button>' +
+      '</div>' +
+      '<div class="listing-body">' +
+      '<div class="listing-price">' +
+      (a.prix || '--') +
+      ' $ <span>/ mois</span></div>' +
+      '<div class="listing-title">' +
+      (a.titre || '') +
+      '</div>' +
+      '<div class="listing-location"><i class="fa-solid fa-location-dot"></i> ' +
+      (a.commune || '') +
+      ', ' +
+      (a.quartier || '') +
+      '</div>' +
+      '<div class="listing-meta">' +
+      '<div class="meta-item"><i class="fa-solid fa-bed"></i> ' +
+      (a.chambres || '--') +
+      ' ch.</div>' +
+      '<div class="meta-item"><i class="fa-solid fa-bath"></i> ' +
+      (a.sdb || '--') +
+      ' SDB</div>' +
+      '</div>' +
+      '<a href="tel:' +
+      (a.telephone || '') +
+      '" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>' +
+      '</div>';
+
+    card.querySelector('.listing-fav').addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleFavori(id, this, isFavPage ? card : null);
+    });
+
+    return card;
+  }
 
   /* ══════════════════════════════════════
-     3. TOGGLE FAVORI
+     5. TOGGLE FAVORI
   ══════════════════════════════════════ */
-  function toggleFavori(id, btn) {
+  function toggleFavori(id, btn, cardToRemove) {
     var idx = favoris.indexOf(id);
     if (idx === -1) {
       favoris.push(id);
@@ -191,8 +397,14 @@
       favoris.splice(idx, 1);
       btn.classList.remove('active');
       btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+      if (cardToRemove) {
+        cardToRemove.style.opacity = '0';
+        cardToRemove.style.transition = 'opacity 0.3s';
+        setTimeout(function () {
+          cardToRemove.remove();
+        }, 300);
+      }
     }
     localStorage.setItem('sl_favoris', JSON.stringify(favoris));
   }
-
 })();

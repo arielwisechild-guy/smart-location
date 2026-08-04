@@ -19,6 +19,7 @@
   padding: 48px;
   position: relative;
   overflow: hidden;
+  margin-top: 50px;
 }
 
 .auth-visual::before {

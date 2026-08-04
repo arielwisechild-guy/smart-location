@@ -19,14 +19,14 @@
 
   <!-- NAVBAR -->
   <nav>
-    <a href="../../index.html" class="nav-logo">
+    <a href="../global/index.html" class="nav-logo">
   <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
       <span class="logo-text">Smart <span>Location</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="../global/annonces.html">Annonces</a></li>
-      <li><a href="../../index.html#comment-ca-marche">Comment ca marche</a></li>
-      <li><a href="../../index.html#comptes">Nos comptes</a></li>
+      <li><a href="/HTML/global/index.html#comment-ca-marche">Comment ca marche</a></li>
+      <li><a href="/HTML/global/mes-comptes.html">Mes comptes</a></li>
       <li><a href="../global/contact.html">Contact</a></li>
     </ul>
     <div class="nav-cta">
@@ -38,9 +38,9 @@
 
   <!-- Menu mobile -->
   <div class="nav-mobile">
-    <a href="../global/annonces.html">Annonces</a>
-    <a href="../../index.html#comment-ca-marche">Comment ca marche</a>
-    <a href="../../index.html#comptes">Nos comptes</a>
+    <a href="/HTML/global/annonces.html">Annonces</a>
+    <a href="/HTML/global/index.html#comment-ca-marche">Comment ca marche</a>
+    <a href="/HTML/global/mes-comptes.html">Mes comptes</a>
     <a href="../global/contact.html">Contact</a>
     <div class="nav-mobile-cta">
       <a href="connexion.html" class="btn-outline-white">Connexion</a>
@@ -53,15 +53,6 @@
 
     <!-- Panneau gauche — visuel -->
     <div class="auth-visual">
-      <div class="auth-visual-logo">
-        <a href="../../index.html" class="nav-logo">
-          <div class="logo-placeholder">
-            <i class="fa-solid fa-location-dot"></i>
-          </div>
-          <span class="logo-text">Smart <span>Location</span></span>
-        </a>
-      </div>
-
       <div class="auth-visual-body">
         <h2>Rejoignez <em>Smart</em> Location</h2>
         <p>Creez votre compte gratuitement et connectez-vous directement avec bailleurs et locataires — sans intermediaire, sans commission.</p>
@@ -91,12 +82,11 @@
 
       <div class="auth-form-header">
         <h1>Creer un compte</h1>
-        <p>Deja inscrit ? <a href="connexion.html">Se connecter</a></p>
       </div>
 
       <div class="auth-message"></div>
 
-      <form class="auth-form" data-action="connexion" novalidate>
+      <form class="auth-form" data-action="inscription" novalidate>
 
         <!-- CHOIX DU ROLE -->
         <div class="form-group">
@@ -325,30 +315,30 @@
           <i class="fa-solid fa-user-plus"></i>
           Creer mon compte
         </button>
-
-        <div class="auth-divider">ou</div>
-
-        <p style="text-align:center; font-size:0.82rem; color:var(--gray);">
-          Deja inscrit ?
-          <a href="connexion.html" style="color:var(--black); font-weight:600; border-bottom:1px solid var(--black); text-decoration:none;">
-            Se connecter
-          </a>
-        </p>
-
-      </form>
+    </form>
     </div>
 
   </main>
 
   <!-- JS -->
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
-  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
-  <script src="../../JAVASCRIPT/global/navbar.js"></script>
-  <script src="../../JAVASCRIPT/Authentification/auth.js"></script>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../../JAVASCRIPT/global/supabase-config.js?v=202608041200"></script>
+  <script src="../../JAVASCRIPT/global/supabase-init.js?v=202608041200"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js?v=20260804"></script>
+  <script src="../../JAVASCRIPT/global/chat-widget.js?v=20260804"></script>
+
+  <!-- Chat widget markup -->
+  <div id="chat-widget" style="position:fixed;right:20px;bottom:20px;z-index:9999;font-family:Inter, sans-serif">
+    <button id="chat-toggle" style="background:#0d6efd;color:#fff;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 10px rgba(13,110,253,.2)">Assistant</button>
+    <div id="chat-panel" style="display:none;width:340px;max-width:90vw;background:#fff;border:1px solid #e6e6e6;padding:8px;border-radius:10px;margin-top:8px;box-shadow:0 8px 24px rgba(0,0,0,.12)">
+      <div id="chat-messages" style="height:260px;overflow:auto;margin-bottom:8px;padding:6px"></div>
+      <textarea id="chat-input" rows="2" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #ddd;border-radius:6px"></textarea>
+      <button id="chat-send" style="margin-top:6px;background:#0d6efd;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Envoyer</button>
+    </div>
+  </div>
+
+  <script src="../../JAVASCRIPT/Authentification/auth.js?v=202608041200"></script>
 
 </body>
 </html>

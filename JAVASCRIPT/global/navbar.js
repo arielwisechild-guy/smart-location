@@ -33,4 +33,27 @@
       burger.classList.remove('fa-xmark');
     }
   });
+
+  // Fallback for local file testing: convert absolute /HTML/... links to relative paths
+  try {
+    if (location && location.protocol === 'file:') {
+      var allNavLinks = document.querySelectorAll('nav a, .nav-mobile a');
+      var pathParts = location.pathname.split('/');
+      var htmlIndex = Math.max(pathParts.lastIndexOf('HTML'), pathParts.lastIndexOf('html'));
+      if (htmlIndex !== -1) {
+        var depth = Math.max(0, pathParts.length - htmlIndex - 2); // number of folders under HTML
+        allNavLinks.forEach(function (a) {
+          try {
+            var href = a.getAttribute('href') || '';
+            if (href.indexOf('/HTML/') === 0 || href.indexOf('/html/') === 0) {
+              // convert '/HTML/global/mes-comptes.html' -> '../'.repeat(depth) + 'global/mes-comptes.html'
+              var target = href.replace(/^\/HTML\//i, '');
+              var rel = (depth > 0 ? new Array(depth + 1).join('../') : './') + target;
+              a.setAttribute('href', rel);
+            }
+          } catch (e) {}
+        });
+      }
+    }
+  } catch (e) {}
 })();

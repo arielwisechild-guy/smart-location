@@ -126,69 +126,9 @@
           <a href="recherche.html" class="dash-link">Voir tout</a>
         </div>
         <div class="dash-section-body">
-          <div class="listings-grid">
+          <div class="listings-grid"> </div>
 
-            <div class="listing-card">
-              <div class="listing-img">
-                <div class="listing-img-placeholder"><i class="fa-solid fa-house"></i></div>
-                <span class="listing-badge verified">Verifie</span>
-                <button class="listing-fav" data-id="1" title="Sauvegarder">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="listing-body">
-                <div class="listing-price">450 $ <span>/ mois</span></div>
-                <div class="listing-title">Maison 3 chambres avec salon</div>
-                <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Gombe, Avenue des Aviateurs</div>
-                <div class="listing-meta">
-                  <div class="meta-item"><i class="fa-solid fa-bed"></i> 3 ch.</div>
-                  <div class="meta-item"><i class="fa-solid fa-bath"></i> 2 SDB</div>
-                </div>
-                <a href="tel:+243812000001" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>
-              </div>
-            </div>
-
-            <div class="listing-card">
-              <div class="listing-img">
-                <div class="listing-img-placeholder"><i class="fa-solid fa-building"></i></div>
-                <span class="listing-badge">Disponible</span>
-                <button class="listing-fav" data-id="2" title="Sauvegarder">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="listing-body">
-                <div class="listing-price">200 $ <span>/ mois</span></div>
-                <div class="listing-title">Appartement 2 chambres</div>
-                <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Lingwala, Quartier Socimat</div>
-                <div class="listing-meta">
-                  <div class="meta-item"><i class="fa-solid fa-bed"></i> 2 ch.</div>
-                  <div class="meta-item"><i class="fa-solid fa-bath"></i> 1 SDB</div>
-                </div>
-                <a href="tel:+243812000002" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>
-              </div>
-            </div>
-
-            <div class="listing-card">
-              <div class="listing-img">
-                <div class="listing-img-placeholder"><i class="fa-solid fa-house-chimney"></i></div>
-                <span class="listing-badge verified">Verifie</span>
-                <button class="listing-fav" data-id="3" title="Sauvegarder">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="listing-body">
-                <div class="listing-price">120 $ <span>/ mois</span></div>
-                <div class="listing-title">Studio meuble, eau incluse</div>
-                <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Kalamu, Avenue Kasa-Vubu</div>
-                <div class="listing-meta">
-                  <div class="meta-item"><i class="fa-solid fa-bed"></i> 1 ch.</div>
-                  <div class="meta-item"><i class="fa-solid fa-bath"></i> 1 SDB</div>
-                </div>
-                <a href="tel:+243812000003" class="btn-call"><i class="fa-solid fa-phone"></i> Appeler le bailleur</a>
-              </div>
-            </div>
-
-          </div>
+        </div>
         </div>
       </div>
 
@@ -218,6 +158,17 @@
   <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
   <script src="../../JAVASCRIPT/global/navbar.js"></script>
   <script src="../../JAVASCRIPT/locataire/locataire.js"></script>
+  <script src="../../JAVASCRIPT/global/chat-widget.js"></script>
+
+  <!-- Chat widget markup -->
+  <div id="chat-widget" style="position:fixed;right:20px;bottom:20px;z-index:9999;font-family:Inter, sans-serif">
+    <button id="chat-toggle" style="background:#0d6efd;color:#fff;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 10px rgba(13,110,253,.2)">Assistant</button>
+    <div id="chat-panel" style="display:none;width:340px;max-width:90vw;background:#fff;border:1px solid #e6e6e6;padding:8px;border-radius:10px;margin-top:8px;box-shadow:0 8px 24px rgba(0,0,0,.12)">
+      <div id="chat-messages" style="height:260px;overflow:auto;margin-bottom:8px;padding:6px"></div>
+      <textarea id="chat-input" rows="2" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #ddd;border-radius:6px"></textarea>
+      <button id="chat-send" style="margin-top:6px;background:#0d6efd;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Envoyer</button>
+    </div>
+  </div>
 
 </body>
 </html>

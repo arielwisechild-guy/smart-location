@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mes comptes — Smart Location</title>
+  <link rel="stylesheet" href="../../CSS/global/style.css" />
+  <link rel="stylesheet" href="../../CSS/global/navbar.css" />
+  <link rel="stylesheet" href="../../CSS/global/home.css" />
+  <link rel="stylesheet" href="../../CSS/Authentification/auth.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="../../ASSETS/Capture2.PNG" class="logo-img" alt="Smart Location">
+      <span class="logo-text">Smart <span>Location</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="annonces.html">Annonces</a></li>
+      <li><a href="index.html#comment-ca-marche">Comment ca marche</a></li>
+      <li><a href="mes-comptes.html">Mes comptes</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="../Authentification/connexion.html" class="btn-outline-white">Connexion</a>
+      <a href="../Authentification/inscription.html" class="btn-gold">Creer un compte</a>
+    </div>
+    <i class="fa-solid fa-bars nav-burger"></i>
+  </nav>
+
+  <main style="padding:120px 5% 60px;max-width:980px;margin:0 auto">
+    <h1>Mes comptes</h1>
+    <p class="section-sub">Gérez vos accès et rôles sur Smart Location. Choisissez le type de compte que vous souhaitez utiliser ou créer.</p>
+
+    <div class="accounts-grid" style="margin-top:24px">
+      <div class="account-card">
+        <div class="account-icon"><i class="fa-solid fa-key"></i></div>
+        <h3>Bailleur</h3>
+        <p>Publiez et gérez vos annonces directement.</p>
+        <a href="/HTML/Authentification/inscription.html?role=bailleur" class="btn-black">Accéder / Créer</a>
+      </div>
+
+      <div class="account-card featured">
+        <div class="account-icon"><i class="fa-solid fa-house-user"></i></div>
+        <h3>Locataire</h3>
+        <p>Recherchez des annonces et sauvegardez vos favoris.</p>
+        <a href="/HTML/Authentification/inscription.html?role=locataire" class="btn-white">Accéder / Créer</a>
+      </div>
+
+      <div class="account-card">
+        <div class="account-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Chef de quartier</h3>
+        <p>Validez les annonces et gérez les signalements locaux.</p>
+        <a href="/HTML/Authentification/inscription.html?role=chef" class="btn-black">Accéder / Créer</a>
+      </div>
+    </div>
+  </main>
+
+  <footer style="margin-top:40px">
+    <!-- minimal footer reuse -->
+    <div style="padding:24px 5%;background:#f7f7f7;text-align:center;color:#666">&copy; 2026 Smart Location</div>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="../../JAVASCRIPT/global/firebase-init.js"></script>
+  <script src="../../JAVASCRIPT/global/navbar.js"></script>
+  <script src="../../JAVASCRIPT/global/chat-widget.js"></script>
+
+  <!-- Chat widget markup -->
+  <div id="chat-widget" style="position:fixed;right:20px;bottom:20px;z-index:9999;font-family:Inter, sans-serif">
+    <button id="chat-toggle" style="background:#0d6efd;color:#fff;border:none;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 4px 10px rgba(13,110,253,.2)">Assistant</button>
+    <div id="chat-panel" style="display:none;width:340px;max-width:90vw;background:#fff;border:1px solid #e6e6e6;padding:8px;border-radius:10px;margin-top:8px;box-shadow:0 8px 24px rgba(0,0,0,.12)">
+      <div id="chat-messages" style="height:260px;overflow:auto;margin-bottom:8px;padding:6px"></div>
+      <textarea id="chat-input" rows="2" style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #ddd;border-radius:6px"></textarea>
+      <button id="chat-send" style="margin-top:6px;background:#0d6efd;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Envoyer</button>
+    </div>
+  </div>
+</body>
+</html>

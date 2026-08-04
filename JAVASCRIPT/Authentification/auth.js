@@ -1,7 +1,7 @@
 /* ============================================================
    SMART LOCATION — auth.js
-   Rôle : authentification Firebase réelle
-   - Inscription avec rôle sauvegardé dans Firestore
+   Rôle : authentification Supabase
+   - Inscription avec rôle sauvegardé dans une table profiles
    - Connexion avec redirection vers le bon dashboard
    - Toggle mot de passe, validation des champs
    Développé par : Ariel Wise Child & Mr. Google — © 2026
@@ -92,7 +92,7 @@
   });
 
   /* ══════════════════════════════════════
-     4. REDIRECTION PAR ROLE
+     4. REDIRECTION PAR ROLE & UTILITAIRES SUPABASE
   ══════════════════════════════════════ */
   function redirectByRole(role) {
     var routes = {
@@ -101,6 +101,34 @@
       chef:      '../../HTML/chef-quartier/dashboard.html'
     };
     window.location.href = routes[role] || '../../index.html';
+  }
+
+  function ensureSupabaseProfile(user, profileData, password) {
+    if (!isSupabaseReady() || !user) return Promise.resolve();
+
+    return window.supabaseClient.auth.getSession().then(function (sessionResult) {
+      var session = sessionResult && sessionResult.data && sessionResult.data.session;
+      if (session) return session;
+
+      if (!password) return null;
+
+      return window.supabaseClient.auth.signInWithPassword({
+        email: profileData.email,
+        password: password
+      }).then(function (signInResult) {
+        if (signInResult.error) throw signInResult.error;
+        return signInResult.data.session;
+      });
+    }).then(function () {
+      return window.supabaseClient.from('profiles').upsert(profileData, { onConflict: 'id' }).then(function (res) {
+        if (res.error) throw res.error;
+        return res;
+      });
+    });
+  }
+
+  function isSupabaseReady() {
+    return !!(window.supabaseClient && window.supabaseConfigStatus === 'ready');
   }
 
   /* ══════════════════════════════════════
@@ -118,23 +146,31 @@
       btn.disabled  = true;
       btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Connexion...';
 
-      auth.signInWithEmailAndPassword(email, password)
-        .then(function (userCredential) {
-          return db.collection('users').doc(userCredential.user.uid).get();
-        })
-        .then(function (doc) {
-          if (doc.exists) {
-            redirectByRole(doc.data().role);
-          } else {
-            showMessage(msgEl, 'error', 'Profil introuvable. Contactez le support.');
-            btn.disabled  = false;
-            btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter';
-          }
+      if (!isSupabaseReady()) {
+        showMessage(msgEl, 'error', 'Supabase n\'est pas prêt. Remplacez l\'URL du projet et la clé anon réelle dans JAVASCRIPT/global/supabase-config.js.');
+        btn.disabled  = false;
+        btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter';
+        return;
+      }
+
+      window.supabaseClient.auth.signInWithPassword({ email: email, password: password })
+        .then(function (result) {
+          if (result.error) throw result.error;
+          return window.supabaseClient.from('profiles').select('role').eq('id', result.data.user.id).single().then(function (res) {
+            if (res.error && res.error.code !== 'PGRST116') throw res.error;
+            if (res.data && res.data.role) {
+              redirectByRole(res.data.role);
+            } else {
+              redirectByRole('locataire');
+            }
+          });
         })
         .catch(function (error) {
+          console.error('Connexion error:', error);
           btn.disabled  = false;
           btn.innerHTML = '<i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter';
-          showMessage(msgEl, 'error', getErrorMessage(error.code));
+          var connMsg = getErrorMessage(error && error.message ? error.message : '');
+          showMessage(msgEl, 'error', connMsg);
         });
     });
   }
@@ -157,7 +193,7 @@
       var msgEl = document.querySelector('.auth-message');
 
       if (cgu && !cgu.checked) {
-        showMessage(msgEl, 'error', 'Veuillez accepter les conditions generales.');
+        showMessage(msgEl, 'error', 'Veuillez accepter les conditions générales.');
         return;
       }
       if (!allValid) {
@@ -180,31 +216,59 @@
 
       var btn = inscriptionForm.querySelector('.btn-submit');
       btn.disabled  = true;
-      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Creation du compte...';
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Création du compte...';
 
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(function (userCredential) {
-          var uid = userCredential.user.uid;
-          userCredential.user.updateProfile({ displayName: prenom + ' ' + nom });
-          return db.collection('users').doc(uid).set({
-            uid:       uid,
-            prenom:    prenom,
-            nom:       nom,
-            email:     email,
-            phone:     phone,
-            role:      role,
-            commune:   commune,
-            quartier:  quartier,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
+      if (!isSupabaseReady()) {
+        btn.disabled  = false;
+        btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Créer mon compte';
+        showMessage(msgEl, 'error', 'Supabase n\'est pas prêt. Remplacez l\'URL du projet et la clé anon réelle dans JAVASCRIPT/global/supabase-config.js.');
+        return;
+      }
+
+      window.supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            prenom: prenom,
+            nom: nom,
+            phone: phone,
+            role: role,
+            commune: commune,
+            quartier: quartier
+          }
+        }
+      })
+        .then(function (result) {
+          if (result.error) throw result.error;
+          return ensureSupabaseProfile(result.data.user, {
+            id: result.data.user.id,
+            prenom: prenom,
+            nom: nom,
+            email: email,
+            phone: phone,
+            role: role,
+            commune: commune,
+            quartier: quartier
+          }, password);
         })
         .then(function () {
           redirectByRole(role);
         })
         .catch(function (error) {
+          console.error('Inscription error:', error);
           btn.disabled  = false;
-          btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Creer mon compte';
-          showMessage(msgEl, 'error', getErrorMessage(error.code));
+          btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Créer mon compte';
+
+          var insMsg = getErrorMessage(error && error.message ? error.message : '');
+          if (error && error.status === 401) {
+            insMsg = 'Supabase a refusé la requête. Vérifiez la clé anon et l’activation du provider Email/Password.';
+          }
+          if (error && error.code === '42501') {
+            insMsg = 'Le compte a été créé, mais la création du profil a été refusée par Supabase. Vérifiez les politiques RLS sur la table profiles.';
+          }
+
+          showMessage(msgEl, 'error', insMsg);
         });
     });
   }
@@ -215,9 +279,13 @@
   document.querySelectorAll('.sidebar-link.danger').forEach(function (lien) {
     lien.addEventListener('click', function (e) {
       e.preventDefault();
-      auth.signOut().then(function () {
+      if (window.supabaseClient) {
+        window.supabaseClient.auth.signOut().then(function () {
+          window.location.href = '../../HTML/Authentification/connexion.html';
+        });
+      } else {
         window.location.href = '../../HTML/Authentification/connexion.html';
-      });
+      }
     });
   });
 
@@ -225,11 +293,13 @@
      8. PROTECTION DASHBOARDS
   ══════════════════════════════════════ */
   if (document.querySelector('.dashboard-page')) {
-    auth.onAuthStateChanged(function (user) {
-      if (!user) {
-        window.location.href = '../../HTML/Authentification/connexion.html';
-      }
-    });
+    if (window.supabaseClient && window.supabaseClient.auth.onAuthStateChange) {
+      window.supabaseClient.auth.onAuthStateChange(function (event, session) {
+        if (!session) {
+          window.location.href = '../../HTML/Authentification/connexion.html';
+        }
+      });
+    }
   }
 
   /* ══════════════════════════════════════
@@ -244,16 +314,13 @@
 
   function getErrorMessage(code) {
     var messages = {
-      'auth/user-not-found':         'Aucun compte trouve avec cet email.',
-      'auth/wrong-password':         'Mot de passe incorrect.',
-      'auth/invalid-credential':     'Email ou mot de passe incorrect.',
-      'auth/email-already-in-use':   'Cet email est deja utilise.',
-      'auth/weak-password':          'Mot de passe trop faible (minimum 6 caracteres).',
-      'auth/invalid-email':          'Adresse email invalide.',
-      'auth/too-many-requests':      'Trop de tentatives. Reessayez dans quelques minutes.',
-      'auth/network-request-failed': 'Erreur reseau. Verifiez votre connexion internet.'
+      'Invalid login credentials': 'Email ou mot de passe incorrect.',
+      'User already registered': 'Cet email est déjà utilisé par un autre compte.',
+      'Password should be at least 6 characters': 'Mot de passe trop faible (minimum 6 caractères).',
+      'Unable to validate email address: invalid format': 'Adresse email invalide.',
+      'Email rate limit exceeded': 'Trop de tentatives. Réessayez dans quelques minutes.'
     };
-    return messages[code] || 'Une erreur est survenue. Reessayez.';
+    return messages[code] || (code || 'Une erreur est survenue lors de l\'authentification.');
   }
 
 })();

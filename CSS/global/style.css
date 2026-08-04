@@ -24,6 +24,12 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Fix anchors hidden behind the fixed navbar */
+/* Navbar height ~70px; add a small buffer */
+#comment-ca-marche, #comptes {
+  scroll-margin-top: 90px;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background: var(--white);
