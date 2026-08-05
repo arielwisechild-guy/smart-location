@@ -1,11 +1,10 @@
 /* ============================================================
    SMART LOCATION — supabase-init.js
-   Rôle : initialisation cliente Supabase pour le stockage d'images
-   Remplacez les valeurs ci-dessous par votre URL et votre anon key Supabase.
+   Rôle : initialisation du client Supabase
    ============================================================ */
 
 (function () {
-  var url = window.SUPABASE_URL || 'https://czcnnfxyosmrvvbupfxu.supabase.co';
+  var url = window.SUPABASE_URL || 'https://czcnnfxyosmrvvbupfxu.supabase.co/rest/v1/';
   var anonKey = window.SUPABASE_ANON_KEY || 'sb_publishable_nMufF6cxXeuLX3SfBJPFLw_bYzFg60t';
 
   window.supabaseClient = null;

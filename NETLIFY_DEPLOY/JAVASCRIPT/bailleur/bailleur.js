@@ -2,7 +2,7 @@
    SMART LOCATION — bailleur.js
    Rôle : logique Firebase des pages bailleur
    - Chargement du profil connecté
-   - Publication d'annonce dans Firestore (photos optionnelles)
+   - Publication d'annonce dans supabase  (photos optionnelles)
    - Chargement et suppression des annonces du bailleur
    Développé par : Ariel Wise Child & Mr. Google — © 2026
    ============================================================ */
@@ -12,25 +12,84 @@
   /* ══════════════════════════════════════
      0. VERIFIER LA CONNEXION
   ══════════════════════════════════════ */
-  auth.onAuthStateChanged(function (user) {
+  function getCurrentUser() {
+    return new Promise(function (resolve) {
+      if (window.supabaseClient && window.supabaseClient.auth && window.supabaseClient.auth.getSession) {
+        window.supabaseClient.auth.getSession().then(function (result) {
+          if (result.error || !result.data || !result.data.session || !result.data.session.user) {
+            resolve(null);
+            return;
+          }
+          var user = result.data.session.user;
+          resolve({
+            uid: user.id,
+            email: user.email,
+            displayName: user.user_metadata && user.user_metadata.full_name ? user.user_metadata.full_name : user.email,
+            raw: user
+          });
+        });
+        return;
+      }
+
+      if (auth && auth.onAuthStateChanged) {
+        auth.onAuthStateChanged(function (user) {
+          if (!user) {
+            resolve(null);
+            return;
+          }
+          resolve({ uid: user.uid, email: user.email, displayName: user.displayName || user.email, raw: user });
+        });
+        return;
+      }
+
+      resolve(null);
+    });
+  }
+
+  function loadSidebarProfile(user) {
+    var nameEl = document.querySelector('.sidebar-user-name');
+    var roleEl = document.querySelector('.sidebar-user-role');
+
+    if (window.supabaseClient && window.supabaseClient.from) {
+      return window.supabaseClient.from('profiles').select('prenom, nom').eq('id', user.uid).single().then(function (res) {
+        if (!res.error && res.data) {
+          if (nameEl) nameEl.textContent = (res.data.prenom || '') + ' ' + (res.data.nom || '');
+        } else if (nameEl) {
+          nameEl.textContent = user.displayName || user.email || 'Utilisateur';
+        }
+        if (roleEl) roleEl.textContent = 'Bailleur';
+      }).catch(function () {
+        if (nameEl) nameEl.textContent = user.displayName || user.email || 'Utilisateur';
+        if (roleEl) roleEl.textContent = 'Bailleur';
+      });
+    }
+
+    if (db && db.collection) {
+      return db.collection('users').doc(user.uid).get().then(function (doc) {
+        if (!doc.exists) return;
+        var data = doc.data();
+        if (nameEl) nameEl.textContent = (data.prenom || '') + ' ' + (data.nom || '');
+        if (roleEl) roleEl.textContent = 'Bailleur';
+      });
+    }
+
+    if (nameEl) nameEl.textContent = user.displayName || user.email || 'Utilisateur';
+    if (roleEl) roleEl.textContent = 'Bailleur';
+    return Promise.resolve();
+  }
+
+  getCurrentUser().then(function (user) {
     if (!user) {
       window.location.href = '../../HTML/Authentification/connexion.html';
       return;
     }
 
-    db.collection('users').doc(user.uid).get().then(function (doc) {
-      if (!doc.exists) return;
-      var data   = doc.data();
-      var nameEl = document.querySelector('.sidebar-user-name');
-      var roleEl = document.querySelector('.sidebar-user-role');
-      if (nameEl) nameEl.textContent = data.prenom + ' ' + data.nom;
-      if (roleEl) roleEl.textContent = 'Bailleur';
+    loadSidebarProfile(user).then(function () {
+      var page = window.location.pathname;
+      if (page.includes('dashboard'))    initDashboard(user);
+      if (page.includes('mes-annonces')) initMesAnnonces(user);
+      if (page.includes('publier'))      initPublier(user);
     });
-
-    var page = window.location.pathname;
-    if (page.includes('dashboard'))    initDashboard(user);
-    if (page.includes('mes-annonces')) initMesAnnonces(user);
-    if (page.includes('publier'))      initPublier(user);
   });
 
   /* ══════════════════════════════════════
@@ -250,7 +309,11 @@
         })
         .catch(function (err) {
           console.error('Upload Supabase:', err);
-          showToast('error', 'Echec de l\'upload des photos. Verifiez votre bucket Supabase.');
+          var uploadMessage = 'Echec de l\'upload des photos. Verifiez votre bucket Supabase.';
+          if (err && err.status === 401) {
+            uploadMessage = 'Upload refusé par Supabase. Vérifiez la clé anon et les permissions du bucket.';
+          }
+          showToast('error', uploadMessage);
           publishBtn.disabled  = false;
           publishBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Publier l\'annonce';
         });
